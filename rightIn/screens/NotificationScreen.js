@@ -15,10 +15,14 @@ class NotificationScreen extends Component {
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <Button
-                title="Create"
-                onPress={() => navigate('Home', { name: 'Danny' })}
-            />
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Button
+                    title="Go to home"
+                    onPress={() => navigate('Home', { name: 'Danny' })}
+                />
+
+            </View>
+            
         );
     }
 

@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 class WelcomeScreen extends Component {
     static navigationOptions = {
-        title: 'Welcome'
+       
     }
 
     render() {
