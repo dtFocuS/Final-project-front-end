@@ -12,8 +12,12 @@ class SignupScreen extends Component {
         super(props);
 
         this.state = {
+            firstname: '',
+            lastname: '',
             username: '',
             password: '',
+            image: '',
+            email: ''
         };
     }
 
@@ -28,6 +32,12 @@ class SignupScreen extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
+                <TextInput
+                    value={this.state.username}
+                    onChangeText={(username) => this.setState({ username })}
+                    placeholder={'Firstname'}
+                    style={styles.input}
+                />
                 <TextInput
                     value={this.state.username}
                     onChangeText={(username) => this.setState({ username })}
