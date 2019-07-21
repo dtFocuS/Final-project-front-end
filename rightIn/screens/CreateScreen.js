@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 
 class CreateScreen extends Component {
 
@@ -46,9 +46,20 @@ class CreateScreen extends Component {
                     secureTextEntry={true}
                     style={styles.input}
                 /> */}
+                <Input
+                    inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10 }}
+                    placeholder='INPUT WITH CUSTOM ICON'
+                    leftIcon={
+                        <Icon
+                            name='user'
+                            size={24}
+                            color='black'
+                        />
+                    }
+                />
                
                 <Input
-                    inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5 }}
+                    inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10 }}
                     placeholder='INPUT WITH CUSTOM ICON'
                     leftIcon={
                         <Icon
@@ -60,9 +71,14 @@ class CreateScreen extends Component {
                 />
 
                 <Button
-                    title={'Create'}
-                    style={styles.input}
-                    onPress={this.onLogin}
+                    icon={
+                        <Icon
+                            name="heartbeat"
+                            size={15}
+                            color="white"
+                        />
+                    }
+                    title="Create"
                 />
             </View>
             
@@ -75,8 +91,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ecf0f1',
+        justifyContent: 'center'
     },
     input: {
         width: 200,

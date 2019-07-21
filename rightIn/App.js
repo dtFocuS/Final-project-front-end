@@ -13,6 +13,8 @@ import { Ionicons } from '@expo/vector-icons';
 import MainNavigator from './navigation/MainNavigator';
 
 export default function App(props) {
+
+  
   // const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   // if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -32,6 +34,8 @@ export default function App(props) {
     );
   // }
 }
+
+
 
 // async function loadResourcesAsync() {
   

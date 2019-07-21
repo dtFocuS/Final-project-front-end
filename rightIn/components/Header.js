@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Text } from 'react-native';
 import Constants from 'expo-constants';
 import { withNavigation } from 'react-navigation';
+import { Font } from 'expo';
 
 
 class Header extends Component {
+
+    
 
     render() {
         const { navigate } = this.props.navigation;
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
     paragraph: {
         margin: 24,
         fontSize: 18,
-        textAlign: 'center',
+        textAlign: 'center'
     },
 });
 
