@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
+import { Alert, Button, TextInput, View, StyleSheet, AsyncStorage } from 'react-native';
 
 
 
@@ -22,20 +22,84 @@ class SignupScreen extends Component {
     }
 
     onLogin = () => {
-        const { username, password } = this.state;
-        this.props.navigation.navigate('Home')
+        const { firstname, lastname, username, password, email, image } = this.state;
+        //this.props.navigation.navigate('Home')
+        if (firstname === "" || lastname === "" || username === "" || password === "" || email === "") {
+            Alert.alert('Please fill out all fields');
+        } else {
+            this.createUser();
+        }
 
-        Alert.alert('Credentials', `${username} + ${password}`);
     }
+
+    createUser = () => {
+        const { firstname, lastname, username, password, email, image } = this.state;
+        fetch("http://localhost:3000/api/v1/users", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: {
+                    first_name: firstname,
+                    last_name: lastname,
+                    username: username,
+                    password: password,
+                    email: email
+                }
+            })
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            this.loginNewUser();
+        })
+    }
+
+    loginNewUser = () => {
+        const { username, password } = this.state;
+        //this.props.navigation.navigate('Dashboard');
+        fetch('http://localhost:3000/api/v1/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user: { username, password } })
+        })
+        .then(res => res.json())
+        .then(json => {
+            //console.log('login:', json)
+            if (json && json.jwt) {
+                this.saveToken(json.jwt)
+                this.props.navigation.navigate('Dashboard');
+            } else {
+                Alert.alert(json.message);
+            }
+        })
+
+    }
+
+    saveToken = async (jwt) => {
+        try {
+            await AsyncStorage.setItem('jwt', jwt);
+        } catch (error) {
+            console.log(error.message)
+        }
+    };
 
     render() {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <TextInput
-                    value={this.state.username}
-                    onChangeText={(username) => this.setState({ username })}
-                    placeholder={'Firstname'}
+                    value={this.state.firstname}
+                    onChangeText={(firstname) => this.setState({ firstname })}
+                    placeholder={'First Name'}
+                    style={styles.input}
+                />
+                <TextInput
+                    value={this.state.lastname}
+                    onChangeText={(lastname) => this.setState({ lastname })}
+                    placeholder={'Last Name'}
                     style={styles.input}
                 />
                 <TextInput
@@ -49,6 +113,12 @@ class SignupScreen extends Component {
                     onChangeText={(password) => this.setState({ password })}
                     placeholder={'Password'}
                     secureTextEntry={true}
+                    style={styles.input}
+                />
+                <TextInput
+                    value={this.state.email}
+                    onChangeText={(email) => this.setState({ email })}
+                    placeholder={'Email'}
                     style={styles.input}
                 />
 
