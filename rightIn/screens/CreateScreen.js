@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
-import Header from '../components/Header'
+import Header from '../components/Header';
+import { withNavigation } from 'react-navigation';
 
 class CreateScreen extends Component {
 
@@ -38,9 +39,25 @@ class CreateScreen extends Component {
 
     }
 
-    onLogin = () => {
-        const { username, password } = this.state;
-        this.props.navigation.navigate('Dashboard');
+    createActivity = () => {
+        const user_id = this.props.navigation.dangerouslyGetParent().getParam('user_id');
+        const { name, description } = this.state;
+         if (this.state.name === "" || this.state.description === "") {
+            Alert.alert('Please fill out all fields.')
+         } else {
+             fetch('http://localhost:3000/api/v1/activities', {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json'
+                 },
+                 body: JSON.stringify({ activity: { name, description, user_id: user_id } })
+             })
+             .then(resp => resp.json())
+             .then(json => {
+                 this.props.navigation.navigate('Home');
+             })
+            
+         }
 
         //Alert.alert('Credentials', `${username} + ${password}`);
     }
@@ -54,7 +71,7 @@ class CreateScreen extends Component {
                 <Header tab={'Create Activity'}/>
                 <TextInput
                     value={this.state.username}
-                    onChangeText={(username) => this.setState({ username })}
+                    onChangeText={(name) => this.setState({ name })}
                     selectionColor={BLUE}
                     placeholder={'Name'}
                     style={styles.input}
@@ -64,10 +81,9 @@ class CreateScreen extends Component {
                 />
                 <TextInput
                     value={this.state.password}
-                    onChangeText={(password) => this.setState({ password })}
+                    onChangeText={(description) => this.setState({ description })}
                     selectionColor={BLUE}
                     placeholder={'Description'}
-                    secureTextEntry={true}
                     style={styles.input}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
@@ -105,6 +121,7 @@ class CreateScreen extends Component {
                             color="white"
                         />
                     }
+                    onPress={this.createActivity}
                     title="Create"
                 />
             </View>
@@ -131,4 +148,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CreateScreen;
+export default withNavigation(CreateScreen);
