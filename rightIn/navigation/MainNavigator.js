@@ -38,6 +38,6 @@ const AppSwitchNavigator = createSwitchNavigator({
 })
 
 
-const AppContainer = createAppContainer(AppSwitchNavigator);
+const AppContainer = createAppContainer(BottomTabNavigator);
 
 export default AppContainer;
