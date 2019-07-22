@@ -21,7 +21,10 @@ class CreateScreen extends Component {
         this.state = {
             name: '',
             description: '',
-            isFocused: false
+            isFocused: false,
+            user_id: this.props.screenProps.user.id,
+            latitude: this.props.screenProps.userLocation.latitude,
+            longitude: this.props.screenProps.userLocation.longitude
         };
     }
 
@@ -40,8 +43,9 @@ class CreateScreen extends Component {
     }
 
     createActivity = () => {
-        const user_id = this.props.navigation.dangerouslyGetParent().getParam('user_id');
-        const { name, description } = this.state;
+        //const user_id = this.props.navigation.dangerouslyGetParent().getParam('user_id');
+        console.log(this.props.screenProps.userLocation)
+        const { name, description, user_id, latitude, longitude } = this.state;
          if (this.state.name === "" || this.state.description === "") {
             Alert.alert('Please fill out all fields.')
          } else {
@@ -50,7 +54,7 @@ class CreateScreen extends Component {
                  headers: {
                      'Content-Type': 'application/json'
                  },
-                 body: JSON.stringify({ activity: { name, description, user_id: user_id } })
+                 body: JSON.stringify({ activity: { name, description, user_id, latitude, longitude} })
              })
              .then(resp => resp.json())
              .then(json => {

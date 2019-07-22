@@ -6,6 +6,7 @@ import * as Permissions from 'expo-permissions';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Header from './Header';
+import ActivityMarker from './ActivityMarker';
 
 class Map extends Component {
     // constructor() {
@@ -24,6 +25,7 @@ class Map extends Component {
             longitude: -122.303200
         },
         errorMessage: null,
+        activities: []
     };
 
     
@@ -61,7 +63,10 @@ class Map extends Component {
                 longitude: location.coords.longitude
             }
         }), () => {
-            console.log(this.state.location)
+            this.setState({
+                activities: this.props.activities
+            })
+            this.props.screenProps.getLocation(this.state.userLocation)
         });
     };
 
@@ -70,6 +75,7 @@ class Map extends Component {
         if (this.state.errorMessage) {
             text = this.state.errorMessage;
         } else if (this.state.location) {
+            
             text = JSON.stringify(this.state.location);
         }
 
@@ -77,13 +83,19 @@ class Map extends Component {
             <View style={{flex: 1}}>
                     <MapView
                         style={{ flex: 1 }}
-                        provider="google"
+                        provider={'google'}
                         region={this.state.location}
                     >
-                    <Marker
+                    {
+                        this.state.activities.map(activity => {
+                            return <ActivityMarker key={activity.id} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }}/>
+                            
+                        })
+                    }
+                    {/* <Marker
                         coordinate={this.state.userLocation}
                         pinColor={"blue"}
-                    />
+                    /> */}
                     </MapView>
                 
                 <Text></Text>
