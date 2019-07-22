@@ -31,10 +31,10 @@ class LoginScreen extends Component {
         })
         .then(res => res.json())
         .then(json => {
-            //console.log('login:', json)
+            console.log('user id:', json.user.id)
             if (json && json.jwt) {
                 this.saveToken(json.jwt)
-                this.props.navigation.navigate('Dashboard');
+                this.props.navigation.navigate('Dashboard', { user_id: json.user.id });
              } else {
                  Alert.alert(json.message);
              }
