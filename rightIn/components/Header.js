@@ -35,8 +35,9 @@ const styles = StyleSheet.create({
     },
     paragraph: {
         margin: 24,
-        fontSize: 18,
-        textAlign: 'center'
+        fontSize: 36,
+        textAlign: 'center',
+        fontFamily: 'Lobster'
     },
 });
 

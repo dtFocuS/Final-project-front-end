@@ -15,6 +15,24 @@ class HomeScreen extends Component {
         }
     }
 
+    state = {
+        activites:[]
+    }
+
+    componentDidMount() {
+        this.loadActivities();
+    }
+
+    loadActivities = () => {
+        fetch('http://localhost:3000/api/v1/activities')
+        .then(resp => resp.json())
+        .then(json => {
+            this.setState({
+                activites: json
+            })
+        })
+    }
+
     render() {
         const {navigate} = this.props.navigation;
         return(
@@ -28,7 +46,7 @@ class HomeScreen extends Component {
             // </View>
             <View style={{flex: 1}}>
                 <Header tab={'Home'}/>
-                <Map />
+                <Map screenProps={this.props.screenProps} activities={this.state.activites}/>
             </View>
 
             

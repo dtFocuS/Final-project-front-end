@@ -3,18 +3,23 @@
 
 
 
-import { AppLoading } from 'expo';
+import { AppLoading, Font } from 'expo';
 import { Asset } from 'expo-asset';
 //import * as Font from 'expo-font';
 import React, { useState, Component } from 'react';
-import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import MainNavigator from './navigation/MainNavigator';
 
 class App extends Component {
 
-  
+  state = {
+    user: null,
+    token: null,
+    userLocation: null,
+    isReady: false
+  }
   // const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   // if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -26,15 +31,94 @@ class App extends Component {
   //     />
   //   );
   // } else {
-    render() {
-      return (
+  // handleLogin = (user) => {
+  //   this.setState({
+  //     user: user
+  //   })
+  // }
+
+  // componentDidMount() {
+  //   this.getToken();
+  // }
+
+  async componentWillMount() {
+    this.getToken();
+    await Promise.all([
+      Asset.loadAsync([
+        // require('./assets/images/robot-dev.png'),
+        // require('./assets/images/robot-prod.png'),
+      ]),
+      Font.loadAsync({
+        ...Ionicons.font,
+        'Lobster': require('./assets/fonts/Lobster-Regular.ttf'),
+        'Acme': require('./assets/fonts/Acme-Regular.ttf'),
+        'Kaushan Script': require('./assets/fonts/KaushanScript-Regular.ttf')
+      })
+    ]);
+    this.setState({ isReady: true })
+  }
+
+  getToken = async () => {
+    try {
+      const value = await AsyncStorage.getItem('jwt');
+        if (value !== null) {
+          // We have data!!
+          this.setState({
+            token: value
+          }, () => {this.getUser(value)})
+        }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error.message)
+    }
+  }
+
+  getUser = (token) => {
+    //let token = this.getToken()
+    fetch('http://localhost:3000/api/v1/profile', {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        if (json.user) {
+          this.setState({ user: json.user}, () => {
+            //console.log(this.state.user)
+          })
+        }
+      })
+  }
+
+  getLocation = (location) => {
+    this.setState({
+      userLocation: location
+    })
+  }
+
+  
+
+  render() {
+    const screenProps = {
+      user: this.state.user,
+      getLocation: this.getLocation,
+      userLocation: this.state.userLocation
+    }
+
+    if (!this.state.isReady) {
+      return(
+        <Text>Loading</Text>
+      );
+    } else {
+      return(
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <MainNavigator />
+          <MainNavigator screenProps={screenProps} />
         </View>
       );
-
     }
+
+  }
     
   // }
 }

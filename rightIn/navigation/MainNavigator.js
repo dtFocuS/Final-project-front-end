@@ -1,5 +1,5 @@
+import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import LoginScreen from '../screens/LoginScreen';
@@ -37,7 +37,11 @@ const AppSwitchNavigator = createSwitchNavigator({
 
 })
 
+const AppContainer = createAppContainer(BottomTabNavigator);
 
-const AppContainer = createAppContainer(AppSwitchNavigator);
+// class MainNavigator extends Component {
+
+
+// }
 
 export default AppContainer;
