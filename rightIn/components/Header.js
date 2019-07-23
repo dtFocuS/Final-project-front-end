@@ -12,11 +12,17 @@ class Header extends Component {
     render() {
         const { navigate } = this.props.navigation;
         return(
-
-            <View style={styles.container}>
-
-                <Text style={styles.paragraph}>{this.props.tab}</Text>
+            <View>
+                <View style={styles.container}>
+                    
+                    <Text style={styles.paragraph}>{this.props.tab}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', backgroundColor: '#ecf0f1'}}>
+                    <Button style={styles.button} title={'profile'}></Button>
+                </View>
+                
             </View>
+            
 
 
         );
@@ -30,15 +36,23 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#ecf0f1'
+        paddingTop: 30,
+        //paddingTop: Constants.statusBarHeight,
+        backgroundColor: '#ecf0f1',
+        flexDirection: 'row'
     },
     paragraph: {
-        margin: 24,
+        //margin: 24,
         fontSize: 36,
-        textAlign: 'center',
+        //textAlign: 'center',
         fontFamily: 'Lobster'
     },
+    button: {
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: 'black',
+        alignSelf: 'flex-start'
+    }
 });
 
 export default withNavigation(Header);
