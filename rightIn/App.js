@@ -3,9 +3,9 @@
 
 
 
-import { AppLoading, Font } from 'expo';
+import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
-//import * as Font from 'expo-font';
+import * as Font from 'expo-font';
 import React, { useState, Component } from 'react';
 import { Platform, StatusBar, StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

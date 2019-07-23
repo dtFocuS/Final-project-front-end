@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Ionicons } from '@expo/vector-icons';
+import Header from '../components/Header';
 
 class NotificationScreen extends Component {
 
@@ -29,7 +30,8 @@ class NotificationScreen extends Component {
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flex: 1 }}>
+                <Header tab={'Notification'}/>
                 <Button
                     title="Go to home"
                     onPress={() => this.getToken()}

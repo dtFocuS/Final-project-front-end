@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MapView from 'react-native-maps'
 import { Marker, Callout } from 'react-native-maps';
 import { StyleSheet, View, Text, TouchableHighlight, Button } from 'react-native';
 
@@ -6,7 +7,14 @@ import { StyleSheet, View, Text, TouchableHighlight, Button } from 'react-native
 
 class ActivityMarker extends Component {
 
+    state = {
+        isClicked: false
+    }
+
     handlePress = () => {
+        // this.setState({
+        //     isClicked: !this.state.isClicked
+        // })
         console.log('clicked')
     }
 
@@ -15,17 +23,19 @@ class ActivityMarker extends Component {
         return(
             <Marker
                 coordinate={this.props.coordinate}
+                
             >
-                <Callout>
-                    <TouchableHighlight onPress={this.handlePress}>
+                <Callout onPress={this.handlePress}>
+                    <TouchableHighlight>
                         <View>
                             <Text>{this.props.activity.description}</Text>
-                            <Button title={'hello'} onPress={this.handlePress} ></Button>
+                            {/* <Button title={'hello'} onPress={this.handlePress} ></Button> */}
                         </View>
 
                     </TouchableHighlight>
                     
                 </Callout>
+
                 {/* <View style={styles.marker}>
                     <Text>{this.props.activity.name}</Text>
                 </View> */}
