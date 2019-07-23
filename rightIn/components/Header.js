@@ -20,6 +20,7 @@ class Header extends Component {
                         <Image
                             source={{ uri: 'https://images.pexels.com/photos/1669072/pexels-photo-1669072.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500' }}
                             style={styles.image}
+                           
                         />
                     </View>
                     <View style={{ flex: 1, paddingRight: 10 }}>
