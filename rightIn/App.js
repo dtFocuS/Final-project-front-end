@@ -18,7 +18,9 @@ class App extends Component {
     user: null,
     token: null,
     userLocation: null,
-    isReady: false
+    isReady: false,
+    myParticipations: [],
+    othersParticipations: []
   }
   // const [isLoadingComplete, setLoadingComplete] = useState(false);
 

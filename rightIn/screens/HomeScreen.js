@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Overlay, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MapView } from 'react-native-maps';
 import Map from '../components/Map'
 import Header from '../components/Header';
+import MenuDrawer from 'react-native-side-drawer'
+import Drawer from '../components/Drawer';
 
 
 class HomeScreen extends Component {
@@ -16,7 +18,8 @@ class HomeScreen extends Component {
     }
 
     state = {
-        activites:[]
+        activites:[],
+        open: false
     }
 
     componentDidMount() {
@@ -33,6 +36,12 @@ class HomeScreen extends Component {
         })
     }
 
+    handleOpen = () => {
+        this.setState({
+            open: !this.state.open
+        })
+    }
+
     render() {
         const {navigate} = this.props.navigation;
         return(
@@ -44,10 +53,14 @@ class HomeScreen extends Component {
             //     />
 
             // </View>
+            
             <View style={{flex: 1}}>
-                <Header tab={'Home'}/>
-                <Map screenProps={this.props.screenProps} activities={this.state.activites}/>
+                {/* <Drawer open={this.state.open}/> */}
+                <Header tab={'Home'} onHandleDrawer={this.handleOpen} />
+                <Map screenProps={this.props.screenProps} activities={this.state.activites} />
+
             </View>
+            
 
             
             
@@ -57,5 +70,19 @@ class HomeScreen extends Component {
 
 
 }
+
+const { width, height } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+    overlay: {
+        flex: 1,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        opacity: 0.5,
+        backgroundColor: 'black',
+        width: width
+    }  
+})
 
 export default HomeScreen;

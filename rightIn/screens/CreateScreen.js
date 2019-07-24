@@ -126,6 +126,7 @@ class CreateScreen extends Component {
                         />
                     }
                     onPress={this.createActivity}
+                    style={styles.button}
                     title="Create"
                 />
             </View>
@@ -150,6 +151,9 @@ const styles = StyleSheet.create({
         //borderBottomColor: 'gray',
         marginBottom: 10,
     },
+    button: {
+        borderRadius: 20
+    }
 });
 
 export default withNavigation(CreateScreen);
