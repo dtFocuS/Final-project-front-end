@@ -48,7 +48,7 @@ class Header extends Component {
                 </View>
                 <Overlay
                     isVisible={this.state.isVisible}
-                    onBlur={() => {this.setState({isVisible: false})}}
+                    //onBlur={() => {this.setState({isVisible: false})}}
                 >
                     <Button title={'Close'} onPress={this.handleOverlay}></Button>
                 </Overlay>
@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         //textAlign: 'center',
         fontFamily: 'Lobster',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'tomato'
     },
     button: {
         alignSelf: 'flex-start',

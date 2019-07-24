@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Ionicons } from '@expo/vector-icons';
 import Header from '../components/Header';
+import NotificationList from '../components/NotificationList'
 
 class NotificationScreen extends Component {
 
@@ -30,15 +31,16 @@ class NotificationScreen extends Component {
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <View style={{ flex: 1 }}>
-                <Header tab={'Notification'}/>
-                <Button
-                    title="Go to home"
-                    onPress={() => this.getToken()}
-                    // onPress={() => navigate('Home', { name: 'Danny' })}
-                />
+            <View style={ { flex: 1 } }>
+                <Header tab={'Notification'} />
+                <ScrollView style={{ flex: 1 }}>
+                    {
+                        this.props.screenProps.notifications ? <NotificationList otherUsers={this.props.screenProps.otherUsers} notifications={this.props.screenProps.notifications} /> : null
+                    }
+                </ScrollView>
 
             </View>
+            
             
         );
     }

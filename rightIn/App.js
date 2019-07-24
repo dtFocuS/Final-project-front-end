@@ -16,32 +16,14 @@ class App extends Component {
 
   state = {
     user: null,
+    otherUsers: [],
     token: null,
     userLocation: null,
     isReady: false,
-    myParticipations: [],
-    othersParticipations: []
+    allParticipations: [],
+    notifications: []
   }
-  // const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-  // if (!isLoadingComplete && !props.skipLoadingScreen) {
-  //   return (
-  //     <AppLoading
-  //       startAsync={loadResourcesAsync}
-  //       onError={handleLoadingError}
-  //       onFinish={() => handleFinishLoading(setLoadingComplete)}
-  //     />
-  //   );
-  // } else {
-  // handleLogin = (user) => {
-  //   this.setState({
-  //     user: user
-  //   })
-  // }
-
-  // componentDidMount() {
-  //   this.getToken();
-  // }
 
   async componentWillMount() {
     this.getToken();
@@ -58,6 +40,31 @@ class App extends Component {
       })
     ]);
     this.setState({ isReady: true })
+  }
+
+  loadNotifications = () => {
+    if (this.state.user) {
+      const temp = [];
+      //const participations = this.state.participations.slice()
+      this.state.user.activities.forEach(activity => {
+        for (const participation of activity.participations) {
+          temp.push(participation)
+        }
+      })
+      this.setState({
+        notifications: temp
+      })
+    }
+  }
+
+  loadAllParticipations = () => {
+    fetch('http://localhost:3000/api/v1/participations')
+    .then(resp => resp.json())
+    .then(json => {
+      this.setState({
+        allParticipations: json
+      })
+    })
   }
 
   getToken = async () => {
@@ -87,6 +94,8 @@ class App extends Component {
         if (json.user) {
           this.setState({ user: json.user}, () => {
             //console.log(this.state.user)
+            this.loadOtherUsers();
+            this.loadNotifications();
           })
         }
       })
@@ -98,13 +107,26 @@ class App extends Component {
     })
   }
 
+  loadOtherUsers = () => {
+    fetch('http://localhost:3000/api/v1/users')
+    .then(resp => resp.json())
+    .then(users => {
+      const otherUsers = users.filter(user => user.id != this.state.user.id)
+      this.setState({
+        otherUsers: otherUsers
+      }, () => {console.log(this.state.otherUsers)})
+    })
+  }
+
   
 
   render() {
     const screenProps = {
       user: this.state.user,
       getLocation: this.getLocation,
-      userLocation: this.state.userLocation
+      userLocation: this.state.userLocation,
+      notifications: this.state.notifications,
+      otherUsers: this.state.otherUsers
     }
 
     if (!this.state.isReady) {

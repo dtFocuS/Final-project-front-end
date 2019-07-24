@@ -22,26 +22,29 @@ class LoginScreen extends Component {
     onLogin = () => {
         const { username, password } = this.state;
         //this.props.navigation.navigate('Dashboard');
-        fetch('http://localhost:3000/api/v1/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ user: { username, password } })
-        })
-        .then(res => res.json())
-        .then(json => {
-            console.log('user id:', json.user.id)
-            if (json && json.jwt) {
-                //this.props.screenProps(json.user);
-                this.saveToken(json.jwt)
-                this.props.navigation.navigate('Dashboard', { user_id: json.user.id });
-             } else {
-                 Alert.alert(json.message);
-             }
-        })
-        
+        if (username === "" || password === "") {
+            Alert.alert('Invalid username or password!')
+        } else {
+            fetch('http://localhost:3000/api/v1/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user: { username, password } })
+            })
+            .then(res => res.json())
+            .then(json => {
+                console.log('user id:', json.user.id)
+                if (json && json.jwt) {
+                    //this.props.screenProps(json.user);
+                    this.saveToken(json.jwt)
+                    this.props.navigation.navigate('Dashboard', { user_id: json.user.id });
+                } else {
+                    Alert.alert(json.message);
+                }
+            })
 
+        }
         // Alert.alert('Credentials', `${username} + ${password}`);
     }
 

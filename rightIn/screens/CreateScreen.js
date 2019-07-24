@@ -76,21 +76,21 @@ class CreateScreen extends Component {
                 <TextInput
                     value={this.state.username}
                     onChangeText={(name) => this.setState({ name })}
-                    selectionColor={BLUE}
+                    selectionColor={'tomato'}
                     placeholder={'Name'}
                     style={styles.input}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
+                    // onFocus={this.handleFocus}
+                    // onBlur={this.handleBlur}
                     borderBottomColor={this.state.isFocused? BLUE : LIGHT_GRAY}
                 />
                 <TextInput
                     value={this.state.password}
                     onChangeText={(description) => this.setState({ description })}
-                    selectionColor={BLUE}
+                    selectionColor={'tomato'}
                     placeholder={'Description'}
                     style={styles.input}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
+                    // onFocus={this.handleFocus}
+                    // onBlur={this.handleBlur}
                     borderBottomColor={this.state.isFocused ? BLUE : LIGHT_GRAY}
                 />
                 {/* <Input
@@ -118,15 +118,9 @@ class CreateScreen extends Component {
                 /> */}
 
                 <Button
-                    icon={
-                        <Icon
-                            name="heartbeat"
-                            size={15}
-                            color="white"
-                        />
-                    }
+                    fontFamily='Lobster'
                     onPress={this.createActivity}
-                    style={styles.button}
+                    buttonStyle={styles.button}
                     title="Create"
                 />
             </View>
@@ -152,7 +146,15 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     button: {
-        borderRadius: 20
+        borderRadius: 80,
+        backgroundColor: 'gold',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+        width: 180,
+        alignSelf: 'center'
     }
 });
 
