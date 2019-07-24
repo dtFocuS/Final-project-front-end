@@ -80,7 +80,8 @@ class Map extends Component {
         }
 
         return (
-            <View style={{flex: 1}}>
+            // <View style={{flex: 1}}>
+                <React.Fragment>
                     <MapView
                         style={{ flex: 1 }}
                         provider={'google'}
@@ -99,7 +100,8 @@ class Map extends Component {
                     </MapView>
                 
                 <Text></Text>
-            </View>
+            </React.Fragment>
+            // </View>
             
           
         );

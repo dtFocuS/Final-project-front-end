@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import LoginScreen from '../screens/LoginScreen';
@@ -7,6 +7,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import SignupScreen from '../screens/SignupScreen';
 import CreateScreen from '../screens/CreateScreen'
 import NotificationScreen from '../screens/NotificationScreen';
+import { Platform, Dimensions } from 'react-native';
 import { getPlatformOrientationLockAsync } from 'expo/build/ScreenOrientation/ScreenOrientation';
 
 // const MainNavigator = createStackNavigator({
@@ -15,6 +16,12 @@ import { getPlatformOrientationLockAsync } from 'expo/build/ScreenOrientation/Sc
 //     Profile: { screen: ProfileScreen}
 
 // });
+
+const WIDTH = Dimensions.get('window').width;
+
+const DrawerConfig = {
+    drawerWidth: WIDTH * 0.83
+}
 
 const BottomTabNavigator = createBottomTabNavigator({
     Home: { screen: HomeScreen },
@@ -36,6 +43,15 @@ const AppSwitchNavigator = createSwitchNavigator({
     Dashboard: { screen: BottomTabNavigator}
 
 })
+
+
+// const DrawerNavigator = createDrawerNavigator(
+//     {
+//         Account: { screen: BottomTabNavigator }
+//     },
+//     DrawerConfig
+// )
+
 
 const AppContainer = createAppContainer(BottomTabNavigator);
 

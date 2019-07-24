@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
+import Header from '../components/Header'
 
 
 class ProfileScreen extends Component {
@@ -34,6 +35,7 @@ class ProfileScreen extends Component {
         //const { navigate } = this.props.navigation;
         return (
             <View style={ styles.container }>
+                <Header tab={'Profile'}/>
                 <Button
                     title="Log out"
                     onPress={() => this.logout()}
@@ -50,9 +52,9 @@ class ProfileScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ecf0f1',
+        //alignItems: 'center',
+        //justifyContent: 'center',
+        //backgroundColor: '#ecf0f1',
     },
     input: {
         width: 200,
