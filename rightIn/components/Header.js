@@ -22,8 +22,11 @@ class Header extends Component {
         })
     }
 
+    
+
     render() {
         const { navigate } = this.props.navigation;
+        
         return(
             <View>
                 <View style={styles.container}>
@@ -36,11 +39,21 @@ class Header extends Component {
                     </View>
                     <View style={{ alignSelf: 'flex-end', paddingRight: 20}}>
                         <TouchableOpacity onPress={this.handleOverlay}>
-                            <Image
-                                source={{ uri: 'https://images.pexels.com/photos/1669072/pexels-photo-1669072.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500' }}
-                                style={styles.image}
+                            {
+                                this.props.user?
+                                    <Image
+                                        source={{ uri: this.props.user.image }}
+                                        style={styles.image}
 
-                            />
+                                    />
+                                    :
+                                    <Image
+                                        source={{ uri: 'https://images.pexels.com/photos/2670269/pexels-photo-2670269.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' }}
+                                        style={styles.image}
+                                    />
+                                
+                            }
+                            
                         </TouchableOpacity>
 
                     </View>

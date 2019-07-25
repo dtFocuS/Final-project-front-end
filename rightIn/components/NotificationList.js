@@ -13,7 +13,7 @@ class NotificationList extends Component {
             <View style={{ flex: 1 }}>
                 {
                     this.props.notifications.map(notification => {
-                        return <NotificationCard key={notification.id} notification={notification} otherUsers={this.props.otherUsers}/>
+                        return <NotificationCard key={notification.id} notification={notification} otherUsers={this.props.otherUsers} allActivities={this.props.allActivities}/>
                     })
                 }
 

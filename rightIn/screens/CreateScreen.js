@@ -58,7 +58,8 @@ class CreateScreen extends Component {
              })
              .then(resp => resp.json())
              .then(json => {
-                 this.props.navigation.navigate('Home');
+                 this.props.screenProps.handleCreate();
+                 //this.props.navigation.navigate('Home');
              })
             
          }
@@ -72,7 +73,7 @@ class CreateScreen extends Component {
         const { navigate } = this.props.navigation;
         return(
             <View style={styles.container}>
-                <Header tab={'Create Activity'}/>
+                <Header tab={'Create Activity'} user={this.props.screenProps.user}/>
                 <TextInput
                     value={this.state.username}
                     onChangeText={(name) => this.setState({ name })}
@@ -121,6 +122,7 @@ class CreateScreen extends Component {
                     fontFamily='Lobster'
                     onPress={this.createActivity}
                     buttonStyle={styles.button}
+                    titleStyle={{fontFamily: 'Lobster'}}
                     title="Create"
                 />
             </View>
@@ -147,14 +149,14 @@ const styles = StyleSheet.create({
     },
     button: {
         borderRadius: 80,
-        backgroundColor: 'gold',
+        //backgroundColor: 'tomato',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 1,
         width: 180,
-        alignSelf: 'center'
+        alignSelf: 'center',
     }
 });
 

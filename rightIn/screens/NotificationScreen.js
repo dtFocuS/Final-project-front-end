@@ -14,28 +14,28 @@ class NotificationScreen extends Component {
         }
     }
 
-    getToken = async () => {
-        try {
-            const value = await AsyncStorage.getItem('jwt');
-            if (value !== null) {
-                // We have data!!
-                console.log(value);
-            }
-        } catch (error) {
-            // Error retrieving data
-            console.log(error.message)
-        }
+    // getToken = async () => {
+    //     try {
+    //         const value = await AsyncStorage.getItem('jwt');
+    //         if (value !== null) {
+    //             // We have data!!
+    //             console.log(value);
+    //         }
+    //     } catch (error) {
+    //         // Error retrieving data
+    //         console.log(error.message)
+    //     }
         
-    }
+    // }
 
     render() {
         const { navigate } = this.props.navigation;
         return (
             <View style={ { flex: 1 } }>
-                <Header tab={'Notification'} />
+                <Header tab={'Notification'} user={this.props.screenProps.user}/>
                 <ScrollView style={{ flex: 1 }}>
                     {
-                        this.props.screenProps.notifications ? <NotificationList otherUsers={this.props.screenProps.otherUsers} notifications={this.props.screenProps.notifications} /> : null
+                        this.props.screenProps.notifications ? <NotificationList allActivities={this.props.screenProps.allActivities} otherUsers={this.props.screenProps.otherUsers} notifications={this.props.screenProps.notifications} /> : null
                     }
                 </ScrollView>
 

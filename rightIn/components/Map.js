@@ -7,6 +7,7 @@ import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Header from './Header';
 import ActivityMarker from './ActivityMarker';
+import MyActivityMarker from './MyActivityMarker';
 
 class Map extends Component {
     // constructor() {
@@ -40,6 +41,10 @@ class Map extends Component {
         }
     }
 
+    // componentDidUpdate() {
+    //     console.log(this.props.screenProps.otherUsers)
+    // }
+
     _getLocationAsync = async () => {
         let { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
@@ -64,7 +69,7 @@ class Map extends Component {
             }
         }), () => {
             this.setState({
-                activities: this.props.activities
+                activities: this.props.screenProps.otherActivities
             })
             this.props.screenProps.getLocation(this.state.userLocation)
         });
@@ -72,12 +77,12 @@ class Map extends Component {
 
     render() {
         let text = 'Waiting..';
-        if (this.state.errorMessage) {
-            text = this.state.errorMessage;
-        } else if (this.state.location) {
+        // if (this.state.errorMessage) {
+        //     text = this.state.errorMessage;
+        // } else if (this.state.location) {
             
-            text = JSON.stringify(this.state.location);
-        }
+        //     text = JSON.stringify(this.state.location);
+        // }
 
         return (
             // <View style={{flex: 1}}>
@@ -88,15 +93,17 @@ class Map extends Component {
                         region={this.state.location}
                     >
                     {
-                        this.state.activities.map(activity => {
-                            return <ActivityMarker key={activity.id} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }}/>
+                        this.props.screenProps.otherUsers?
+                        this.props.screenProps.otherActivities.map(activity => {
+                            return <ActivityMarker key={activity.id} otherUsers={this.props.screenProps.otherUsers} handleJoin={this.props.screenProps.handleJoin} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }}/>
                             
+                        }) :null
+                    }
+                    {
+                        this.props.screenProps.myActivities.map(activity => {
+                            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} />
                         })
                     }
-                    {/* <Marker
-                        coordinate={this.state.userLocation}
-                        pinColor={"blue"}
-                    /> */}
                     </MapView>
                 
                 <Text></Text>

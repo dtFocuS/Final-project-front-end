@@ -21,7 +21,11 @@ class App extends Component {
     userLocation: null,
     isReady: false,
     allParticipations: [],
-    notifications: []
+    notifications: [],
+    allActivities: [],
+    joinedActivities: [],
+    otherActivities: [],
+    myActivities: []
   }
 
 
@@ -93,9 +97,10 @@ class App extends Component {
       .then(json => {
         if (json.user) {
           this.setState({ user: json.user}, () => {
-            //console.log(this.state.user)
+            console.log(token)
             this.loadOtherUsers();
             this.loadNotifications();
+            this.loadAllActivities();
           })
         }
       })
@@ -114,9 +119,55 @@ class App extends Component {
       const otherUsers = users.filter(user => user.id != this.state.user.id)
       this.setState({
         otherUsers: otherUsers
-      }, () => {console.log(this.state.otherUsers)})
+      })
     })
   }
+
+  loadAllActivities = () => {
+    fetch('http://localhost:3000/api/v1/activities')
+    .then(resp => resp.json())
+    .then(activities => {
+      this.setState({
+        allActivities: activities
+      }, () => {
+        this.loadOtherActivities();
+        this.loadMyActivities();
+      })
+    })
+  }
+
+  loadOtherActivities = () => {
+    if (this.state.allActivities) {
+      const otherActivities = this.state.allActivities.filter(activity => activity.user_id !== this.state.user.id)
+      this.setState({
+        otherActivities: otherActivities
+      })
+    }
+  }
+
+  loadMyActivities = () => {
+    if (this.state.allActivities) {
+      const myActivities = this.state.allActivities.filter(activity => activity.user_id === this.state.user.id)
+      this.setState({
+        myActivities: myActivities
+      })
+    }
+  }
+
+  handleJoin = (joinedActivity) => {
+    console.log(joinedActivity)
+    const temp = this.state.user.activities.filter(activity => activity.id === joinedActivity.id)
+    if (temp.length === 0) {
+
+    }
+  }
+
+  handleCreate = () => {
+    this.loadMyActivities();
+    // this.getUser()
+  }
+
+  
 
   
 
@@ -126,7 +177,12 @@ class App extends Component {
       getLocation: this.getLocation,
       userLocation: this.state.userLocation,
       notifications: this.state.notifications,
-      otherUsers: this.state.otherUsers
+      otherUsers: this.state.otherUsers,
+      allActivities: this.state.allActivities,
+      handleJoin: this.handleJoin,
+      otherActivities: this.state.otherActivities,
+      myActivities: this.state.myActivities,
+      handleCreate: this.handleCreate
     }
 
     if (!this.state.isReady) {
