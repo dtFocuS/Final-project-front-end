@@ -4,9 +4,10 @@ import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import LoginScreen from '../screens/LoginScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
-import SignupScreen from '../screens/SignupScreen';
+import SignupScreen from '../screens/SignUpScreen';
 import CreateScreen from '../screens/CreateScreen'
 import NotificationScreen from '../screens/NotificationScreen';
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import { Platform, Dimensions } from 'react-native';
 import { getPlatformOrientationLockAsync } from 'expo/build/ScreenOrientation/ScreenOrientation';
 
@@ -36,13 +37,18 @@ const BottomTabNavigator = createBottomTabNavigator({
     }
 })
 
-const AppSwitchNavigator = createSwitchNavigator({
-    Welcome: { screen: WelcomeScreen},
-    Login: { screen: LoginScreen},
-    Signup: { screen: SignupScreen},
-    Dashboard: { screen: BottomTabNavigator}
-
-})
+const AppSwitchNavigator = createSwitchNavigator(
+    {
+        AuthLoading: { screen: AuthLoadingScreen },
+        Welcome: { screen: WelcomeScreen },
+        Login: { screen: LoginScreen},
+        Signup: { screen: SignupScreen},
+        Dashboard: { screen: BottomTabNavigator}
+    },
+    {
+        initialRouteName: 'AuthLoading'
+    }
+)
 
 
 // const DrawerNavigator = createDrawerNavigator(
@@ -53,7 +59,7 @@ const AppSwitchNavigator = createSwitchNavigator({
 // )
 
 
-const AppContainer = createAppContainer(BottomTabNavigator);
+const AppContainer = createAppContainer(AppSwitchNavigator);
 
 // class MainNavigator extends Component {
 

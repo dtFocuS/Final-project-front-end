@@ -37,14 +37,14 @@ class MyActivityMarker extends Component {
                                 source={{ uri: user.image }}
                                 style={styles.image}
                             />
-                            {/* {
-                                this.state.user.verified?
+                            {
+                                user.verified?
                                     <Image
                                         source={{ uri: verified_icon }}
                                         style={{ width: 20, height: 20, borderRadius: 10, position: 'absolute', bottom: -5, right: -5 }}
                                     />
                                     : null
-                            } */}
+                            }
                             
                         </View>
                         <Text style={{ paddingLeft: 10, paddingTop: 10 }}>{user.username}</Text>

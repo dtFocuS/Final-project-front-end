@@ -25,7 +25,8 @@ class App extends Component {
     allActivities: [],
     joinedActivities: [],
     otherActivities: [],
-    myActivities: []
+    myActivities: [],
+    newCreated: null
   }
 
 
@@ -97,7 +98,7 @@ class App extends Component {
       .then(json => {
         if (json.user) {
           this.setState({ user: json.user}, () => {
-            console.log(token)
+            console.log('get user: ', json.user.id)
             this.loadOtherUsers();
             this.loadNotifications();
             this.loadAllActivities();
@@ -162,12 +163,21 @@ class App extends Component {
     }
   }
 
-  handleCreate = () => {
-    this.loadMyActivities();
-    // this.getUser()
+  handleCreate = (newActivity) => {
+    this.setState({
+      newCreated: newActivity
+    }, () => {
+        this.loadMyActivities();
+    })
+    
+  }
+
+  handleGetToken = () => {
+    this.getToken();
   }
 
   
+ 
 
   
 
@@ -182,7 +192,8 @@ class App extends Component {
       handleJoin: this.handleJoin,
       otherActivities: this.state.otherActivities,
       myActivities: this.state.myActivities,
-      handleCreate: this.handleCreate
+      handleCreate: this.handleCreate,
+      handleGetToken: this.handleGetToken
     }
 
     if (!this.state.isReady) {

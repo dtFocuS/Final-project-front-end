@@ -58,8 +58,8 @@ class CreateScreen extends Component {
              })
              .then(resp => resp.json())
              .then(json => {
-                 this.props.screenProps.handleCreate();
-                 //this.props.navigation.navigate('Home');
+                 this.props.screenProps.handleCreate(json);
+                 this.props.navigation.navigate('Home');
              })
             
          }

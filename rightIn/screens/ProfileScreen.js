@@ -14,10 +14,10 @@ class ProfileScreen extends Component {
         }
     }
 
-    logout = () => {
-        //this.clearToken();
-        this.props.navigation.navigate('Welcome')
-    }
+    // logout = () => {
+    //     //this.clearToken();
+    //     this.props.navigation.navigate('Welcome')
+    // }
 
     // clearToken = async () => {
     //     try {
@@ -30,6 +30,11 @@ class ProfileScreen extends Component {
     //     }
     // };
 
+    _signOutAsync = async () => {
+        await AsyncStorage.clear();
+        this.props.navigation.navigate('Welcome');
+    };
+
 
     render() {
         //const { navigate } = this.props.navigation;
@@ -38,7 +43,7 @@ class ProfileScreen extends Component {
                 <Header tab={'Profile'} user={this.props.screenProps.user}/>
                 <Button
                     title="Log out"
-                    onPress={() => this.logout()}
+                    onPress={this._signOutAsync}
                 />
 
             </View>
