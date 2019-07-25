@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Text, AsyncStorage } from 'react-native';
-import { withNavigation } from 'react-navigation';
+//import { withNavigation } from 'react-navigation';
 
 
 
@@ -25,6 +25,7 @@ class LoginScreen extends Component {
         if (username === "" || password === "") {
             Alert.alert('Invalid username or password!')
         } else {
+            //this.props.screenProps.handleLogin({username: username, password: password});
             fetch('http://localhost:3000/api/v1/login', {
                 method: 'POST',
                 headers: {
@@ -34,16 +35,16 @@ class LoginScreen extends Component {
             })
             .then(res => res.json())
             .then(json => {
-                console.log('user id:', json.user.id)
+                console.log('login user id:', json.user.id)
                 if (json && json.jwt) {
                     //this.props.screenProps(json.user);
                     this.saveToken(json.jwt)
+                    this.props.screenProps.handleGetToken();
                     this.props.navigation.navigate('Dashboard', { user_id: json.user.id });
                 } else {
                     Alert.alert(json.message);
                 }
             })
-
         }
         // Alert.alert('Credentials', `${username} + ${password}`);
     }
@@ -131,4 +132,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default withNavigation(LoginScreen);
+export default LoginScreen;

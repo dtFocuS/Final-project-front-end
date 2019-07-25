@@ -18,7 +18,7 @@ class HomeScreen extends Component {
     }
 
     state = {
-        activites:[],
+        // activites:[],
         open: false
     }
 
@@ -41,6 +41,12 @@ class HomeScreen extends Component {
             open: !this.state.open
         })
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if(nextProps) {
+    //         console.log(this.props.navigation.getParam('user_id'))
+    //     }
+    // }
 
     render() {
         const {navigate} = this.props.navigation;
