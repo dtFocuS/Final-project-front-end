@@ -35,7 +35,7 @@ class ProfileScreen extends Component {
         //const { navigate } = this.props.navigation;
         return (
             <View style={ styles.container }>
-                <Header tab={'Profile'}/>
+                <Header tab={'Profile'} user={this.props.screenProps.user}/>
                 <Button
                     title="Log out"
                     onPress={() => this.logout()}

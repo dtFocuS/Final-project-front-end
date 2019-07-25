@@ -22,19 +22,19 @@ class HomeScreen extends Component {
         open: false
     }
 
-    componentDidMount() {
-        this.loadActivities();
-    }
+    // componentDidMount() {
+    //     this.loadActivities();
+    // }
 
-    loadActivities = () => {
-        fetch('http://localhost:3000/api/v1/activities')
-        .then(resp => resp.json())
-        .then(json => {
-            this.setState({
-                activites: json
-            })
-        })
-    }
+    // loadActivities = () => {
+    //     fetch('http://localhost:3000/api/v1/activities')
+    //     .then(resp => resp.json())
+    //     .then(json => {
+    //         this.setState({
+    //             activites: json
+    //         })
+    //     })
+    // }
 
     handleOpen = () => {
         this.setState({
@@ -56,8 +56,8 @@ class HomeScreen extends Component {
             
             <View style={{flex: 1}}>
                 {/* <Drawer open={this.state.open}/> */}
-                <Header tab={'Home'} onHandleDrawer={this.handleOpen} />
-                <Map screenProps={this.props.screenProps} activities={this.state.activites} />
+                <Header tab={'Home'} onHandleDrawer={this.handleOpen} user={this.props.screenProps.user} />
+                <Map screenProps={this.props.screenProps}  />
 
             </View>
             
