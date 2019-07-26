@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Text, AsyncStorage } from 'react-native';
 //import { withNavigation } from 'react-navigation';
-
+const NGROK_URL = "https://a39b955b.ngrok.io";
 
 
 class LoginScreen extends Component {
@@ -26,7 +26,7 @@ class LoginScreen extends Component {
             Alert.alert('Invalid username or password!')
         } else {
             //this.props.screenProps.handleLogin({username: username, password: password});
-            fetch('http://localhost:3000/api/v1/login', {
+            fetch(NGROK_URL + '/api/v1/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

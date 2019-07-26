@@ -6,6 +6,8 @@ import { Input, Button } from 'react-native-elements';
 import Header from '../components/Header';
 import { withNavigation } from 'react-navigation';
 
+const NGROK_URL = "https://a39b955b.ngrok.io";
+
 class CreateScreen extends Component {
 
     static navigationOptions = {
@@ -49,7 +51,7 @@ class CreateScreen extends Component {
          if (this.state.name === "" || this.state.description === "") {
             Alert.alert('Please fill out all fields.')
          } else {
-             fetch('http://localhost:3000/api/v1/activities', {
+             fetch(NGROK_URL + '/api/v1/activities', {
                  method: 'POST',
                  headers: {
                      'Content-Type': 'application/json'

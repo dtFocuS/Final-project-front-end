@@ -1,8 +1,6 @@
 //import React from 'react';
 //import { StyleSheet, Text, View } from 'react-native';
 
-
-
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
@@ -11,6 +9,8 @@ import { Platform, StatusBar, StyleSheet, View, Text, AsyncStorage } from 'react
 import { Ionicons } from '@expo/vector-icons';
 
 import MainNavigator from './navigation/MainNavigator';
+
+const NGROK_URL = "https://a39b955b.ngrok.io";
 
 class App extends Component {
 
@@ -63,7 +63,7 @@ class App extends Component {
   }
 
   loadAllParticipations = () => {
-    fetch('http://localhost:3000/api/v1/participations')
+    fetch(NGROK_URL + '/api/v1/participations')
     .then(resp => resp.json())
     .then(json => {
       this.setState({
@@ -89,7 +89,7 @@ class App extends Component {
 
   getUser = (token) => {
     //let token = this.getToken()
-    fetch('http://localhost:3000/api/v1/profile', {
+    fetch(NGROK_URL + '/api/v1/profile', {
       headers: {
         'Authorization': 'Bearer ' + token
       }
@@ -114,7 +114,7 @@ class App extends Component {
   }
 
   loadOtherUsers = () => {
-    fetch('http://localhost:3000/api/v1/users')
+    fetch(NGROK_URL + '/api/v1/users')
     .then(resp => resp.json())
     .then(users => {
       const otherUsers = users.filter(user => user.id != this.state.user.id)
@@ -125,7 +125,7 @@ class App extends Component {
   }
 
   loadAllActivities = () => {
-    fetch('http://localhost:3000/api/v1/activities')
+    fetch(NGROK_URL + '/api/v1/activities')
     .then(resp => resp.json())
     .then(activities => {
       this.setState({
@@ -159,8 +159,22 @@ class App extends Component {
     console.log(joinedActivity)
     const temp = this.state.user.activities.filter(activity => activity.id === joinedActivity.id)
     if (temp.length === 0) {
-
+      this.createParticipation(joinedActivity.id);
     }
+  }
+
+  createParticipation = (activityId) => {
+    fetch(NGROK_URL + '/api/v1/participations', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ participation: { user_id: this.state.user.id, activity_id: activityId} })
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      
+    })
   }
 
   handleCreate = (newActivity) => {
