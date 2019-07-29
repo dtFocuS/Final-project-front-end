@@ -21,7 +21,7 @@ class NotificationCard extends Component {
                         <Avatar
                             rounded
                             size='medium'
-                            source={{ uri: 'https://images.pexels.com/photos/2662123/pexels-photo-2662123.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' }}
+                            source={{ uri: user[0].image }}
                         ></Avatar>
                         {
                             user[0].verified ? <Image

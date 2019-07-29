@@ -8,6 +8,7 @@ import { Marker } from 'react-native-maps';
 import Header from './Header';
 import ActivityMarker from './ActivityMarker';
 import MyActivityMarker from './MyActivityMarker';
+import MyParticipationMarker from './MyParticipationMarker';
 
 class Map extends Component {
     // constructor() {
@@ -93,16 +94,23 @@ class Map extends Component {
                         region={this.state.location}
                     >
                     {
-                        this.props.screenProps.otherUsers?
-                        this.props.screenProps.otherActivities.map(activity => {
+                        this.props.screenProps.notJoinedActivities?
+                        this.props.screenProps.notJoinedActivities.map(activity => {
                             return <ActivityMarker key={activity.id} otherUsers={this.props.screenProps.otherUsers} handleJoin={this.props.screenProps.handleJoin} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }}/>
                             
                         }) :null
                     }
                     {
+                        this.props.screenProps.user?
                         this.props.screenProps.myActivities.map(activity => {
                             return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} />
-                        })
+                        }) : null
+                    }
+                    {
+                        this.props.screenProps.joinedActivities?
+                        this.props.screenProps.joinedActivities.map(activity => {
+                            return <MyParticipationMarker key={activity.id} otherUserId={activity.user_id} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} />
+                        }) :null
                     }
                     </MapView>
                 

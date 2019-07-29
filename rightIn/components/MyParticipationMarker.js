@@ -9,106 +9,77 @@ import IconBadge from 'react-native-icon-badge';
 
 const NGROK_URL = "https://8f7765e6.ngrok.io";
 
-class ActivityMarker extends Component {
+class MyParticipationMarker extends Component {
 
     state = {
-        isClicked: false,
-        joined: false,
-        user: null,
-        verified: null
+        otherUser: null
     }
 
-    handlePress = () => {
-        this.setState({
-            joined: true
-        })
-        this.props.handleJoin(this.props.activity);
-    }
-
-    componentDidMount() {
-        this.loadOwner();
-    }
-
-    loadOwner = () => {
-        fetch(NGROK_URL + '/api/v1/users/' + this.props.activity.user_id)
+    loadUser = () => {
+        fetch(NGROK_URL + "/api/v1/users/" + this.props.otherUserId)
         .then(resp => resp.json())
-        .then(user => {
+        .then(json => {
             this.setState({
-                user: user
-            }, () => {
-                this.checkVerified();
+                otherUser: json
             })
         })
     }
 
-    checkVerified = () => {
-        this.setState({
-            verified: this.state.user.user.verified
-        })
+    componentDidMount() {
+        this.loadUser();
     }
+    
 
     render() {
         const verified_icon = 'https://www.pinclipart.com/picdir/middle/59-595548_1495368559287-copy-instagram-verified-badge-png-clipart.png';
-        
         //const { otherUsers, activity } = this.props
         // let otherUser = null
         // if (this.props.otherUsers) {
         //     otherUser = this.props.otherUsers.filter(user => user.id === this.props.activity.user_id)
         // }
-        
 
-        return(
+
+        return (
             <Marker
                 coordinate={this.props.coordinate}
-                pinColor={this.state.joined ? 'blue': "red"}
+                pinColor={'blue'}
             >
                 <Callout onPress={this.handlePress}>
-                    <View style={{ flexDirection: 'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <View>
                             {
-                                this.state.user?
+                                this.state.otherUser ?
                                     <Image
-                                        source={{ uri: this.state.user.user.image }}
+                                        source={{ uri: this.state.otherUser.user.image }}
                                         style={styles.image}
-                                    /> 
+                                    />
                                     :
                                     <Image
                                         source={{ uri: 'https://images.pexels.com/photos/2670269/pexels-photo-2670269.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' }}
                                         style={styles.image}
                                     />
                             }
-                            {
-                                this.state.verified?
+                            {/* {
+                                this.props.user.verified ?
                                     <Image
                                         source={{ uri: verified_icon }}
                                         style={{ width: 20, height: 20, borderRadius: 10, position: 'absolute', bottom: -5, right: -5 }}
                                     />
                                     : null
-                            }
-                            
+                            } */}
+
                         </View>
                         {
-                            this.state.user?
-                                <Text style={{ paddingLeft: 10, paddingTop: 10 }}>{this.state.user.user.username}</Text> 
+                            this.state.otherUser ?
+                                <Text style={{ paddingLeft: 10, paddingTop: 10 }}>{this.state.otherUser.user.username}</Text>
                                 : <Text style={{ paddingLeft: 10, paddingTop: 10 }}>Hello</Text>
                         }
-                        
+
                     </View>
-                    
+
                     <Text style={{ paddingTop: 10 }}>{this.props.activity.description}</Text>
-                    {
-                        this.state.joined ? null : <CalloutSubview>
-                            <TouchableHighlight>
-                                <Button
-                                    type='clear'
-                                    title={'rightIn'}
-                                    onPress={this.handlePress}
-                                    titleStyle={{ fontFamily: 'Lobster', fontWeight: 'bold' }}
-                                ></Button>
-                            </TouchableHighlight>
-                        </CalloutSubview>
-                    }
                     
+
                 </Callout>
 
                 {/* <View style={styles.marker}>
@@ -121,6 +92,7 @@ class ActivityMarker extends Component {
 
 
 }
+
 
 const styles = StyleSheet.create({
 
@@ -138,4 +110,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ActivityMarker;
+export default MyParticipationMarker;

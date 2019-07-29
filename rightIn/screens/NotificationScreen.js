@@ -14,19 +14,7 @@ class NotificationScreen extends Component {
         }
     }
 
-    // getToken = async () => {
-    //     try {
-    //         const value = await AsyncStorage.getItem('jwt');
-    //         if (value !== null) {
-    //             // We have data!!
-    //             console.log(value);
-    //         }
-    //     } catch (error) {
-    //         // Error retrieving data
-    //         console.log(error.message)
-    //     }
-        
-    // }
+    
 
     render() {
         const { navigate } = this.props.navigation;
