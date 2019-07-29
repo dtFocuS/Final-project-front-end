@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
-import Header from '../components/Header'
+import CustomHeader from '../components/CustomHeader'
 
 
 class ProfileScreen extends Component {
@@ -19,31 +19,30 @@ class ProfileScreen extends Component {
     //     this.props.navigation.navigate('Welcome')
     // }
 
-    // clearToken = async () => {
-    //     try {
-    //         const value = await AsyncStorage.setItem('jwt', '');
-    //         if (value === "") {
-    //             this.props.navigation.navigate('Welcome')
-    //         }
-    //     } catch (error) {
-    //         console.log(error.message)
-    //     }
-    // };
-
-    _signOutAsync = async () => {
-        await AsyncStorage.clear();
-        this.props.navigation.navigate('Welcome');
+    clearToken = async () => {
+        try {
+            await AsyncStorage.clear();
+            this.props.navigation.navigate('Welcome')
+            
+        } catch (error) {
+            console.log(error.message)
+        }
     };
+
+    // _signOutAsync = async () => {
+    //     await AsyncStorage.clear();
+    //     this.props.navigation.navigate('Welcome');
+    // };
 
 
     render() {
         //const { navigate } = this.props.navigation;
         return (
             <View style={ styles.container }>
-                <Header tab={'Profile'} user={this.props.screenProps.user}/>
+                <CustomHeader tab={'Profile'} user={this.props.screenProps.user}/>
                 <Button
                     title="Log out"
-                    onPress={this._signOutAsync}
+                    onPress={this.clearToken}
                 />
 
             </View>

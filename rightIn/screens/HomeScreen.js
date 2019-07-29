@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MapView } from 'react-native-maps';
 import Map from '../components/Map'
-import Header from '../components/Header';
+import CustomHeader from '../components/CustomHeader';
 import MenuDrawer from 'react-native-side-drawer'
 import Drawer from '../components/Drawer';
 
@@ -62,9 +62,12 @@ class HomeScreen extends Component {
             
             <View style={{flex: 1}}>
                 {/* <Drawer open={this.state.open}/> */}
-                <Header tab={'Home'} onHandleDrawer={this.handleOpen} user={this.props.screenProps.user} />
+                <View style={styles.header}>
+                    <CustomHeader tab={'Home'} onHandleDrawer={this.handleOpen} user={this.props.screenProps.user} />
+                </View>
+                
                 <Map screenProps={this.props.screenProps}  />
-
+                
             </View>
             
 
@@ -88,6 +91,11 @@ const styles = StyleSheet.create({
         opacity: 0.5,
         backgroundColor: 'black',
         width: width
+    },
+    header: {
+        //position: 'absolute',
+        
+        // flex: 1
     }  
 })
 

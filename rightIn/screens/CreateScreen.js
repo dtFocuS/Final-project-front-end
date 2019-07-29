@@ -3,10 +3,11 @@ import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
-import Header from '../components/Header';
+import CustomHeader from '../components/CustomHeader';
 import { withNavigation } from 'react-navigation';
 
-const NGROK_URL = "https://8f7765e6.ngrok.io";
+const NGROK_URL = "http://3d4aa7dd.ngrok.io";
+const URL = 'http://localhost:3000';
 
 class CreateScreen extends Component {
 
@@ -75,7 +76,7 @@ class CreateScreen extends Component {
         const { navigate } = this.props.navigation;
         return(
             <View style={styles.container}>
-                <Header tab={'Create Activity'} user={this.props.screenProps.user}/>
+                <CustomHeader tab={'Create Activity'} user={this.props.screenProps.user}/>
                 <TextInput
                     value={this.state.username}
                     onChangeText={(name) => this.setState({ name })}

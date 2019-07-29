@@ -5,7 +5,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
-import Header from './Header';
+import CustomHeader from './CustomHeader';
 import ActivityMarker from './ActivityMarker';
 import MyActivityMarker from './MyActivityMarker';
 import MyParticipationMarker from './MyParticipationMarker';
@@ -89,7 +89,7 @@ class Map extends Component {
             // <View style={{flex: 1}}>
                 <React.Fragment>
                     <MapView
-                        style={{ flex: 1 }}
+                        style={ styles.map }
                         provider={'google'}
                         region={this.state.location}
                     >
@@ -141,6 +141,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
     },
+    map: {
+        // ...StyleSheet.absoluteFillObject,
+        // top: 84
+        flex: 1,
+        
+    }
 });
 
 export default Map;

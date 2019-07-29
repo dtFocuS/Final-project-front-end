@@ -11,7 +11,8 @@ import { Ionicons } from '@expo/vector-icons';
 import MainNavigator from './navigation/MainNavigator';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
-const NGROK_URL = "https://8f7765e6.ngrok.io";
+const NGROK_URL = "http://3d4aa7dd.ngrok.io";
+const URL = 'http://localhost:3000';
 
 class App extends Component {
 
@@ -107,6 +108,8 @@ class App extends Component {
             this.loadNotifications();
             this.loadAllParticipations();
             this.loadAllActivities();
+            // this.loadMyActivities();
+            this.loadJoinedActivity();
             
           })
         }
@@ -139,7 +142,7 @@ class App extends Component {
       }, () => {
         this.loadOtherActivities();
         this.loadMyActivities();
-        this.loadJoinedActivity();
+        // this.loadJoinedActivity();
       })
     })
   }
@@ -178,6 +181,7 @@ class App extends Component {
     fetch(NGROK_URL + '/api/v1/participations', {
       method: "POST",
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ participation: { user_id: this.state.user.id, activity_id: activityId} })
