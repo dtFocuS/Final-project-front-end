@@ -7,7 +7,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconBadge from 'react-native-icon-badge';
 //import climb from '../assets/climb';
 
-const NGROK_URL = "https://8f7765e6.ngrok.io";
+const NGROK_URL = "http://3d4aa7dd.ngrok.io";
+const URL = 'http://localhost:3000';
 
 class MyParticipationMarker extends Component {
 
