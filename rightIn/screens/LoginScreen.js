@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Text, AsyncStorage } from 'react-native';
 //import { withNavigation } from 'react-navigation';
-const NGROK_URL = "https://a39b955b.ngrok.io";
+const NGROK_URL = "https://8f7765e6.ngrok.io";
 
 
 class LoginScreen extends Component {

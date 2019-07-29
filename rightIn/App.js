@@ -9,8 +9,9 @@ import { Platform, StatusBar, StyleSheet, View, Text, AsyncStorage } from 'react
 import { Ionicons } from '@expo/vector-icons';
 
 import MainNavigator from './navigation/MainNavigator';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
-const NGROK_URL = "https://a39b955b.ngrok.io";
+const NGROK_URL = "https://8f7765e6.ngrok.io";
 
 class App extends Component {
 
@@ -21,12 +22,14 @@ class App extends Component {
     userLocation: null,
     isReady: false,
     allParticipations: [],
+    myParticipations: null,
+    joinedActivities: null,
     notifications: [],
     allActivities: [],
-    joinedActivities: [],
     otherActivities: [],
     myActivities: [],
-    newCreated: null
+    newCreated: null,
+    notJoinedActivities: null
   }
 
 
@@ -97,11 +100,14 @@ class App extends Component {
       .then(res => res.json())
       .then(json => {
         if (json.user) {
+          console.log(token)
           this.setState({ user: json.user}, () => {
             console.log('get user: ', json.user.id)
             this.loadOtherUsers();
             this.loadNotifications();
+            this.loadAllParticipations();
             this.loadAllActivities();
+            
           })
         }
       })
@@ -133,17 +139,22 @@ class App extends Component {
       }, () => {
         this.loadOtherActivities();
         this.loadMyActivities();
+        this.loadJoinedActivity();
       })
     })
   }
 
   loadOtherActivities = () => {
-    if (this.state.allActivities) {
-      const otherActivities = this.state.allActivities.filter(activity => activity.user_id !== this.state.user.id)
-      this.setState({
-        otherActivities: otherActivities
+    if (this.state.user) {
+      fetch(NGROK_URL + "/api/v1/others_activities/" + this.state.user.id)
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({
+          otherActivities: json
+        })
       })
     }
+    
   }
 
   loadMyActivities = () => {
@@ -173,7 +184,7 @@ class App extends Component {
     })
     .then(resp => resp.json())
     .then(json => {
-      
+      this.getToken()
     })
   }
 
@@ -189,6 +200,27 @@ class App extends Component {
   handleGetToken = () => {
     this.getToken();
   }
+
+  loadJoinedActivity = () => {
+    fetch(NGROK_URL + "/api/v1/my_joined_activities/" + this.state.user.id)
+    .then(resp => resp.json())
+    .then(json => {
+      this.setState({
+        joinedActivities: json
+      }, () => {this.otherNotJoinedActivity()})
+    })
+  }
+
+  otherNotJoinedActivity = () => {
+    fetch(NGROK_URL + "/api/v1/other_not_joined_activities/" + this.state.user.id)
+    .then(resp => resp.json())
+    .then(json => {
+      this.setState({
+        notJoinedActivities: json
+      })
+    })
+  }
+
 
   
  
@@ -207,7 +239,9 @@ class App extends Component {
       otherActivities: this.state.otherActivities,
       myActivities: this.state.myActivities,
       handleCreate: this.handleCreate,
-      handleGetToken: this.handleGetToken
+      handleGetToken: this.handleGetToken,
+      joinedActivities: this.state.joinedActivities,
+      notJoinedActivities: this.state.notJoinedActivities
     }
 
     if (!this.state.isReady) {

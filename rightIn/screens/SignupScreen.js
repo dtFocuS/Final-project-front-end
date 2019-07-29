@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, AsyncStorage } from 'react-native';
 
-
+const NGROK_URL = "https://8f7765e6.ngrok.io";
 
 class SignupScreen extends Component {
     static navigationOptions = {
@@ -34,7 +34,7 @@ class SignupScreen extends Component {
 
     createUser = () => {
         const { firstname, lastname, username, password, email, image } = this.state;
-        fetch("http://localhost:3000/api/v1/users", {
+        fetch(NGROK_URL +"/api/v1/users", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

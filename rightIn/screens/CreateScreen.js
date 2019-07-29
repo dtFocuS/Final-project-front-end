@@ -6,7 +6,7 @@ import { Input, Button } from 'react-native-elements';
 import Header from '../components/Header';
 import { withNavigation } from 'react-navigation';
 
-const NGROK_URL = "https://a39b955b.ngrok.io";
+const NGROK_URL = "https://8f7765e6.ngrok.io";
 
 class CreateScreen extends Component {
 
