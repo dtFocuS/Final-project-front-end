@@ -5,9 +5,9 @@ import { StyleSheet, View, Text, TouchableHighlight, Image } from 'react-native'
 import { Input, Button, Card, Avatar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconBadge from 'react-native-icon-badge';
-//import climb from '../assets/climb';
+import SmallProfilePic from './SmallProfilePic';
 
-const NGROK_URL = "http://3d4aa7dd.ngrok.io";
+const NGROK_URL = "http://86d4632b.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class MyParticipationMarker extends Component {
@@ -46,21 +46,22 @@ class MyParticipationMarker extends Component {
                 pinColor={'blue'}
             >
                 <Callout onPress={this.handlePress}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View>
-                            {
-                                this.state.otherUser ?
-                                    <Image
-                                        source={{ uri: this.state.otherUser.user.image }}
-                                        style={styles.image}
-                                    />
-                                    :
-                                    <Image
-                                        source={{ uri: 'https://images.pexels.com/photos/2670269/pexels-photo-2670269.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' }}
-                                        style={styles.image}
-                                    />
-                            }
-                            {/* {
+                    <View style={ { width: 165} }>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View>
+                                {
+                                    this.state.otherUser ?
+                                        <Image
+                                            source={{ uri: this.state.otherUser.user.image }}
+                                            style={styles.image}
+                                        />
+                                        :
+                                        <Image
+                                            source={{ uri: 'https://images.pexels.com/photos/2670269/pexels-photo-2670269.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' }}
+                                            style={styles.image}
+                                        />
+                                }
+                                {/* {
                                 this.props.user.verified ?
                                     <Image
                                         source={{ uri: verified_icon }}
@@ -69,16 +70,20 @@ class MyParticipationMarker extends Component {
                                     : null
                             } */}
 
+                            </View>
+                            {
+                                this.state.otherUser ?
+                                    <Text style={{ paddingLeft: 10, paddingTop: 10 }}>{this.state.otherUser.user.username}</Text>
+                                    : <Text style={{ paddingLeft: 10, paddingTop: 10 }}>Hello</Text>
+                            }
+
                         </View>
-                        {
-                            this.state.otherUser ?
-                                <Text style={{ paddingLeft: 10, paddingTop: 10 }}>{this.state.otherUser.user.username}</Text>
-                                : <Text style={{ paddingLeft: 10, paddingTop: 10 }}>Hello</Text>
-                        }
+
+                        <Text style={{ paddingTop: 10 }}>{this.props.activity.description}</Text>
+
 
                     </View>
 
-                    <Text style={{ paddingTop: 10 }}>{this.props.activity.description}</Text>
                     
 
                 </Callout>

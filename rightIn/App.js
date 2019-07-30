@@ -7,11 +7,12 @@ import * as Font from 'expo-font';
 import React, { useState, Component } from 'react';
 import { Platform, StatusBar, StyleSheet, View, Text, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Root, Toast } from "native-base";
 
 import MainNavigator from './navigation/MainNavigator';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
-const NGROK_URL = "http://3d4aa7dd.ngrok.io";
+const NGROK_URL = "http://86d4632b.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class App extends Component {
@@ -30,7 +31,8 @@ class App extends Component {
     otherActivities: [],
     myActivities: [],
     newCreated: null,
-    notJoinedActivities: null
+    notJoinedActivities: null,
+    // selectedParticipants: []
   }
 
 
@@ -170,6 +172,13 @@ class App extends Component {
   }
 
   handleJoin = (joinedActivity) => {
+    Toast.show({
+      text: "You rightIn " + joinedActivity.name + "!",
+      buttonText: "Okay",
+      position: 'top',
+      duration: 3000,
+      textStyle: { color: 'tomato'}
+    })
     console.log(joinedActivity)
     const temp = this.state.user.activities.filter(activity => activity.id === joinedActivity.id)
     if (temp.length === 0) {
@@ -225,6 +234,20 @@ class App extends Component {
     })
   }
 
+  editActivity = () => {
+
+  }
+
+  // loadParticipants = (activity_id) => {
+  //   fetch(NGROK_URL + '/api/v1/participants/' + activity_id)
+  //   .then(resp => resp.json())
+  //   .then(json => {
+  //     this.setState({
+  //       selectedParticipants: json
+  //     }, () => {console.log(this.state.selectedParticipants.length)})
+  //   })
+  // }
+
 
   
  
@@ -245,7 +268,10 @@ class App extends Component {
       handleCreate: this.handleCreate,
       handleGetToken: this.handleGetToken,
       joinedActivities: this.state.joinedActivities,
-      notJoinedActivities: this.state.notJoinedActivities
+      notJoinedActivities: this.state.notJoinedActivities,
+      editActivity: this.editActivity
+      // loadParticipants: this.loadParticipants,
+      // selectedParticipants: this.state.selectedParticipants
     }
 
     if (!this.state.isReady) {
@@ -256,7 +282,10 @@ class App extends Component {
       return(
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <MainNavigator screenProps={screenProps} />
+          <Root>
+            <MainNavigator screenProps={screenProps} />
+          </Root>
+          
         </View>
       );
     }

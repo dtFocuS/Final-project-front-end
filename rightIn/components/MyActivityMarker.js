@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import MapView, { CalloutSubview, Marker, Callout } from 'react-native-maps'
 //import { Marker, Callout } from 'react-native-maps';
 import { StyleSheet, View, Text, TouchableHighlight, Image } from 'react-native';
-import { Input, Button, Card, Avatar, Overlay } from 'react-native-elements';
+import { Input, Button, Card, Avatar, Overlay, Badge } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconBadge from 'react-native-icon-badge';
 import EditActivity from './EditActivity';
 import ActivityDetail from './ActivityDetail';
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
+import SmallProfilePic from './SmallProfilePic';
 
 
 class MyActivityMarker extends Component {
@@ -14,7 +16,8 @@ class MyActivityMarker extends Component {
         isClicked: false,
         isVisible: false,
         clickDelete: false,
-        clickEdit: false
+        clickEdit: false,
+        myParticipants: []
     }
 
     // handlePress = () => {
@@ -24,6 +27,17 @@ class MyActivityMarker extends Component {
     //     // this.props.handleDelete(this.props.activity);
 
     // }
+
+    loadParticipants = () => {
+        fetch(NGROK_URL + '/api/v1/participants/' + this.props.activity.id)
+            .then(resp => resp.json())
+            .then(json => {
+                this.setState({
+                    myParticipants: json
+                })
+
+            })
+    }
 
     handleOverlay = () => {
         this.setState({
@@ -43,13 +57,14 @@ class MyActivityMarker extends Component {
                     pinColor={'#7332a8'}
                 >
                     <Callout onPress={this.handleOverlay}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View>
-                                <Image
-                                    source={{ uri: user.image }}
-                                    style={styles.image}
-                                />
-                                {/* {
+                        <View style={{ width: 165 }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <View>
+                                    <Image
+                                        source={{ uri: user.image }}
+                                        style={styles.image}
+                                    />
+                                    {/* {
                                     user.verified ?
                                         <Image
                                             source={{ uri: verified_icon }}
@@ -58,12 +73,14 @@ class MyActivityMarker extends Component {
                                         : null
                                 } */}
 
+                                </View>
+                                <Text style={ { paddingLeft: 10, paddingTop: 10, fontWeight: 'bold'} }>{user.username}</Text>
                             </View>
-                            <Text style={{ paddingLeft: 10, paddingTop: 10 }}>{user.username}</Text>
-                        </View>
+                           
+                            <SmallProfilePic participants={this.state.myParticipants}/>
 
-                        <Text style={{ paddingTop: 10 }}>{this.props.activity.description}</Text>
-                        {/* <CalloutSubview onPress={this.handleOverlay}>
+                            <Text style={{ paddingTop: 15, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.description}</Text>
+                            {/* <CalloutSubview onPress={this.handleOverlay}>
                             <TouchableHighlight onPress={this.handleOverlay}>
                                 <Button
                                     type='clear'
@@ -74,15 +91,18 @@ class MyActivityMarker extends Component {
                                 ></Button>
                             </TouchableHighlight>
                         </CalloutSubview> */}
-                        <TouchableHighlight onPress={this.handleOverlay}>
-                            <Button
-                                type='clear'
-                                title={'View Details'}
-                                onPress={this.handleOverlay}
-                                // buttonStyle={{ backgroundColor: 'blue'}}
-                                titleStyle={{ fontFamily: 'Lobster', fontWeight: 'bold' }}
-                            ></Button>
-                        </TouchableHighlight>
+                            <TouchableHighlight onPress={this.handleOverlay}>
+                                <Button
+                                    type='clear'
+                                    title={'View Details'}
+                                    onPress={this.handleOverlay}
+                                    // buttonStyle={{ backgroundColor: 'blue'}}
+                                    titleStyle={{ fontFamily: 'Lobster', fontWeight: 'bold' }}
+                                ></Button>
+                            </TouchableHighlight>
+
+                        </View>
+                        
                     </Callout> 
                     
                             
@@ -127,7 +147,14 @@ const styles = StyleSheet.create({
         borderRadius: 40 / 2,
         borderWidth: 2,
         borderColor: "gray"
-    }
+    },
+    participants: {
+        position: 'absolute',
+        // // marginRight: -10,
+        // marginLeft: 130
+        top: 27,
+        right: 15
+    },
 })
 
 
