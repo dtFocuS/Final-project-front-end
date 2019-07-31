@@ -10,7 +10,7 @@ import ActivityDetail from './ActivityDetail';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import SmallProfilePic from './SmallProfilePic';
 
-const NGROK_URL = "http://04c049da.ngrok.io";
+const NGROK_URL = "http://4a31226a.ngrok.io";
 
 
 class MyActivityMarker extends Component {
@@ -128,7 +128,7 @@ class MyActivityMarker extends Component {
                     isVisible={this.state.isVisible}
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
-                    <ActivityDetail user={user} activity={activity} handleClose={this.handleClose}/>
+                    <ActivityDetail user={user} activity={activity} handleClose={this.handleClose} handleModal={this.props.handleModal}/>
                 </Overlay>
                     
               

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Text, AsyncStorage } from 'react-native';
 //import { withNavigation } from 'react-navigation';
-const NGROK_URL = "http://04c049da.ngrok.io";
+const NGROK_URL = "http://4a31226a.ngrok.io";
 const URL = 'http://localhost:3000';
 
 

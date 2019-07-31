@@ -97,7 +97,7 @@ class Map extends Component {
                     {
                         this.props.screenProps.user?
                         this.props.screenProps.myActivities.map(activity => {
-                            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} />
+                            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleModal={this.props.handleModal}/>
                         }) : null
                     }
                     {

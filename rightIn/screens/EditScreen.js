@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, AsyncStorage, Text, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
+// Can be deleted later
 
 class EditScreen extends Component {
+
+    showParams = () => {
+        console.log(this.props.navigation.state.params)
+    }
     
     render() {
         return(
@@ -12,6 +17,9 @@ class EditScreen extends Component {
                     <Text>Open Drawer</Text>
                 </TouchableOpacity>
                 <Text style={{ fontWeight: 'bold', marginTop: 20 }}>Settings</Text>
+                {
+                    this.showParams()
+                }
             </View>
         )
     }

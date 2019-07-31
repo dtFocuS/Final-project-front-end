@@ -10,7 +10,7 @@ import { Toast } from 'native-base';
 //import climb from '../assets/climb';
 import SmallProfilePic from './SmallProfilePic';
 
-const NGROK_URL = "http://04c049da.ngrok.io";
+const NGROK_URL = "http://4a31226a.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class ActivityMarker extends Component {
