@@ -110,6 +110,7 @@ class CreateScreen extends Component {
                     borderBottomColor={this.state.isFocused? BLUE : LIGHT_GRAY}
                 />
                 <TextInput
+                    multiline={true}
                     value={this.state.password}
                     onChangeText={(description) => this.setState({ description })}
                     selectionColor={'tomato'}
@@ -159,13 +160,15 @@ const styles = StyleSheet.create({
         //justifyContent: 'center'
     },
     input: {
-        //width: 200,
+        width: 300,
         height: 44,
         paddingLeft: 10,
         borderBottomWidth: 1,
         // borderColor: 'black',
         //borderBottomColor: 'gray',
         marginBottom: 10,
+        marginRight: 'auto',
+        marginLeft: 'auto',
     },
     button: {
         borderRadius: 80,

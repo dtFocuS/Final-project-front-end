@@ -97,7 +97,7 @@ class Map extends Component {
                     {
                         this.props.screenProps.user?
                         this.props.screenProps.myActivities.map(activity => {
-                            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleModal={this.props.handleModal}/>
+                            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleModal={this.props.handleModal} editActivity={this.props.editActivity}/>
                         }) : null
                     }
                     {
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     },
     map: {
         // ...StyleSheet.absoluteFillObject,
-        // top: 84
+        // top: 84,
         flex: 1,
         
     }

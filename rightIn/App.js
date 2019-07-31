@@ -166,7 +166,7 @@ class App extends Component {
     if (this.state.allActivities) {
       const myActivities = this.state.allActivities.filter(activity => activity.user_id === this.state.user.id)
       this.setState({
-        myActivities: myActivities
+        myActivities: this.state.user.activities
       })
     }
   }
@@ -234,7 +234,22 @@ class App extends Component {
     })
   }
 
-  editActivity = () => {
+  editActivity = (activity) => {
+    const { id, name, description, latitude, longitude } = activity;
+    console.log(latitude)
+    fetch(NGROK_URL + "/api/v1/activities/" + id, {
+      method: "PATCH",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ activity: { name: name, description: description, latitude: latitude, longitude: longitude}})
+    })
+    .then(resp => resp.json())
+    .then(activity => {
+      this.getUser();
+    })
+  
 
   }
 

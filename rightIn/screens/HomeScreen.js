@@ -59,6 +59,12 @@ class HomeScreen extends Component {
             isVisible: true,
         })
     }
+
+    modalClose = () => {
+        this.setState({
+            isVisible: false
+        })
+    }
     
 
     render() {
@@ -105,7 +111,7 @@ class HomeScreen extends Component {
                     backdropOpacity={0.10}
                     isVisible={this.state.isVisible}
 
-                ><EditActivity activity={this.state.activity} /></Modal>
+                ><EditActivity activity={this.state.activity} editActivity={this.props.screenProps.editActivity} modalClose={this.modalClose}/></Modal>
 
                 
 
