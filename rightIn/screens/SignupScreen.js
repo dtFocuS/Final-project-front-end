@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, AsyncStorage } from 'react-native';
 
-const NGROK_URL = "http://3d4aa7dd.ngrok.io";
+const NGROK_URL = "http://04c049da.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class SignupScreen extends Component {

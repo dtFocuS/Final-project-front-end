@@ -77,14 +77,7 @@ class Map extends Component {
     };
 
     render() {
-        let text = 'Waiting..';
-        // if (this.state.errorMessage) {
-        //     text = this.state.errorMessage;
-        // } else if (this.state.location) {
-            
-        //     text = JSON.stringify(this.state.location);
-        // }
-
+        
         return (
             // <View style={{flex: 1}}>
                 <React.Fragment>
@@ -96,7 +89,8 @@ class Map extends Component {
                     {
                         this.props.screenProps.notJoinedActivities?
                         this.props.screenProps.notJoinedActivities.map(activity => {
-                            return <ActivityMarker key={activity.id} otherUsers={this.props.screenProps.otherUsers} handleJoin={this.props.screenProps.handleJoin} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }}/>
+                            return <ActivityMarker key={activity.id} otherUsers={this.props.screenProps.otherUsers} handleJoin={this.props.screenProps.handleJoin} activity={activity} 
+                            coordinate={{ latitude: activity.latitude, longitude: activity.longitude }}/>
                             
                         }) :null
                     }

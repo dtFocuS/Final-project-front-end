@@ -5,8 +5,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
 import CustomHeader from '../components/CustomHeader';
 import { withNavigation } from 'react-navigation';
+import { DatePicker } from 'native-base';
 
-const NGROK_URL = "http://3d4aa7dd.ngrok.io";
+
+const NGROK_URL = "http://04c049da.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class CreateScreen extends Component {
@@ -27,7 +29,8 @@ class CreateScreen extends Component {
             isFocused: false,
             user_id: this.props.screenProps.user.id,
             latitude: this.props.screenProps.userLocation.latitude,
-            longitude: this.props.screenProps.userLocation.longitude
+            longitude: this.props.screenProps.userLocation.longitude,
+            
         };
     }
 
@@ -70,10 +73,29 @@ class CreateScreen extends Component {
         //Alert.alert('Credentials', `${username} + ${password}`);
     }
 
+    editActivity = () => {
+        console.log(this.props.navigation.getParam('name'))
+        console.log(this.props.navigation.getParam('description'))
+        if (this.props.navigation.state.params) {
+            this.setState({
+                name: this.props.navigation.getParam('name'),
+                description: this.props.navigation.getParam('description')
+            })
+        }
+    }
+
+    
+
+    
+
     render() {
         const BLUE = "#428AF8";
         const LIGHT_GRAY = "#D3D3D3";
         const { navigate } = this.props.navigation;
+
+        // const today = new Date();
+        // let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        const { show, date, mode } = this.state;
         return(
             <View style={styles.container}>
                 <CustomHeader tab={'Create Activity'} user={this.props.screenProps.user}/>
@@ -97,29 +119,23 @@ class CreateScreen extends Component {
                     // onBlur={this.handleBlur}
                     borderBottomColor={this.state.isFocused ? BLUE : LIGHT_GRAY}
                 />
-                {/* <Input
-                    inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10 }}
-                    placeholder='INPUT WITH CUSTOM ICON'
-                    leftIcon={
-                        <Icon
-                            name='user'
-                            size={24}
-                            color='black'
-                        />
-                    }
+                
+                {/* <DatePicker
+                    defaultDate={new Date(today.getFullYear(), today.getMonth(), today.getDate())}
+                    minimumDate={new Date(today.getFullYear(), today.getMonth(), today.getDate())}
+                    maximumDate={new Date(2018, 12, 31)}
+                    locale={"en"}
+                    timeZoneOffsetInMinutes={undefined}
+                    modalTransparent={false}
+                    animationType={"fade"}
+                    androidMode={"default"}
+                    placeHolderText="Select date"
+                    textStyle={{ color: "green" }}
+                    placeHolderTextStyle={{ color: "#d3d3d3" }}
+                    onDateChange={this.setDate}
+                    disabled={false}
                 /> */}
-               
-                {/* <Input
-                    inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10 }}
-                    placeholder='INPUT WITH CUSTOM ICON'
-                    leftIcon={
-                        <Icon
-                            name='user'
-                            size={24}
-                            color='black'
-                        />
-                    }
-                /> */}
+                
 
                 <Button
                     fontFamily='Lobster'
@@ -128,6 +144,7 @@ class CreateScreen extends Component {
                     titleStyle={{fontFamily: 'Lobster'}}
                     title="Create"
                 />
+            
             </View>
             
         );

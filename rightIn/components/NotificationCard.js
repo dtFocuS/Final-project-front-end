@@ -8,7 +8,7 @@ class NotificationCard extends Component {
     
 
     render(){
-        const verified_icon = 'https://www.pinclipart.com/picdir/middle/59-595548_1495368559287-copy-instagram-verified-badge-png-clipart.png';
+        // const verified_icon = 'https://www.pinclipart.com/picdir/middle/59-595548_1495368559287-copy-instagram-verified-badge-png-clipart.png';
         const user = this.props.otherUsers.filter(user => user.id === this.props.notification.user_id)
         const activity = this.props.allActivities.filter(activity => activity.id === this.props.notification.activity_id)
         return(
@@ -23,12 +23,12 @@ class NotificationCard extends Component {
                             size='medium'
                             source={{ uri: user[0].image }}
                         ></Avatar>
-                        {
+                        {/* {
                             user[0].verified ? <Image
                                 source={{ uri: verified_icon }}
                                 style={styles.verified}
                             /> : null
-                        }
+                        } */}
                         
                         <Text style={styles.sentence}>{user[0].username} is interested in joining!</Text>
                     </View>

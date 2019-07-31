@@ -10,8 +10,10 @@ import IconBadge from 'react-native-icon-badge';
 class EditActivity extends Component {
 
 
-    handleChange = () => {
-
+    close = () => {
+        this.props.closeEdit();
+        this.props.handleClose();
+        
     }
 
     render() {
@@ -19,6 +21,12 @@ class EditActivity extends Component {
             <View style={{ flex: 1}}>
                 <Input>
                 </Input>
+                <Button
+                    title="close"
+                    onPress={this.close }
+                />
+
+            
             </View>
 
 
