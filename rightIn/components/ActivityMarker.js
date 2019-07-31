@@ -10,7 +10,7 @@ import { Toast } from 'native-base';
 //import climb from '../assets/climb';
 import SmallProfilePic from './SmallProfilePic';
 
-const NGROK_URL = "http://86d4632b.ngrok.io";
+const NGROK_URL = "http://04c049da.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class ActivityMarker extends Component {
@@ -174,7 +174,7 @@ class ActivityMarker extends Component {
                     isVisible={this.state.isVisible}
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
-                    <OthersActivityDetail user={this.state.user} activity={this.props.activity} participants={this.state.selectedParticipants} handleJoin={this.props.handleJoin} handleClose={this.handleClose}/>
+                    <OthersActivityDetail user={this.state.user} activity={this.props.activity} participants={this.state.selectedParticipants} handleJoin={this.props.handleJoin} handleClose={this.handleClose} joined={false}/>
                     
                 </Overlay>
 

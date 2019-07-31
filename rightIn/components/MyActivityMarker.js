@@ -10,6 +10,8 @@ import ActivityDetail from './ActivityDetail';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import SmallProfilePic from './SmallProfilePic';
 
+const NGROK_URL = "http://04c049da.ngrok.io";
+
 
 class MyActivityMarker extends Component {
     state = {
@@ -28,6 +30,10 @@ class MyActivityMarker extends Component {
 
     // }
 
+    componentDidMount() {
+        this.loadParticipants();
+    }
+
     loadParticipants = () => {
         fetch(NGROK_URL + '/api/v1/participants/' + this.props.activity.id)
             .then(resp => resp.json())
@@ -42,7 +48,13 @@ class MyActivityMarker extends Component {
     handleOverlay = () => {
         this.setState({
             isVisible: true
-        }, () => {console.log(this.state.isVisible)})
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            isVisible: false
+        })
     }
 
     render() {
@@ -116,10 +128,7 @@ class MyActivityMarker extends Component {
                     isVisible={this.state.isVisible}
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
-                    {
-
-                    }
-                    <ActivityDetail user={user} activity={activity} />
+                    <ActivityDetail user={user} activity={activity} handleClose={this.handleClose}/>
                 </Overlay>
                     
               

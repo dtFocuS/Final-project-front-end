@@ -12,7 +12,7 @@ import { Root, Toast } from "native-base";
 import MainNavigator from './navigation/MainNavigator';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
-const NGROK_URL = "http://86d4632b.ngrok.io";
+const NGROK_URL = "http://04c049da.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class App extends Component {
@@ -247,6 +247,7 @@ class App extends Component {
   //     }, () => {console.log(this.state.selectedParticipants.length)})
   //   })
   // }
+
 
 
   

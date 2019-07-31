@@ -3,14 +3,24 @@ import { StyleSheet, View, Text, TouchableHighlight, Image } from 'react-native'
 import { Input, Button, Card, Avatar, Overlay, Badge } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconBadge from 'react-native-icon-badge';
-import EditActivity from './EditActivity'
+import EditActivity from './EditActivity';
+import { withNavigation } from 'react-navigation';
+import { DrawerActions } from 'react-navigation';
+
+
 
 
 
 class ActivityDetial extends Component {
 
-    handleEdit = () => {
+    
 
+   
+
+    handleEdit = () => {
+        this.props.handleClose();
+        this.props.navigation.dispatch(DrawerActions.openDrawer());
+        
     }
 
     render() {
@@ -38,6 +48,7 @@ class ActivityDetial extends Component {
                             type='clear'
                             title='Delete Activity' />
                     </View>
+                    
 
                 </View>
                 
@@ -83,4 +94,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ActivityDetial;
+export default withNavigation(ActivityDetial);

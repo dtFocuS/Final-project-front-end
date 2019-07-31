@@ -8,6 +8,7 @@ import SignupScreen from '../screens/SignUpScreen';
 import CreateScreen from '../screens/CreateScreen'
 import NotificationScreen from '../screens/NotificationScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
+import EditScreen from '../screens/EditScreen';
 import { Platform, Dimensions } from 'react-native';
 import { getPlatformOrientationLockAsync } from 'expo/build/ScreenOrientation/ScreenOrientation';
 
@@ -28,14 +29,28 @@ const BottomTabNavigator = createBottomTabNavigator({
     Home: { screen: HomeScreen },
     Create: { screen: CreateScreen },
     Notification: { screen: NotificationScreen },
-    Profile: { screen: ProfileScreen }
+    Profile: { screen: ProfileScreen },
 }, {
-    swipeEnabled: true,
-    tabBarOptions: {
-        activeTintColor: 'tomato',
-        showLabel: false
+        
+        tabBarOptions: {
+            activeTintColor: 'tomato',
+            showLabel: false
+        }
+    })
+
+const DrawerNavigator = createDrawerNavigator(
+    {
+        Dashboard: { screen: BottomTabNavigator }
+    }, {
+        navigationOptions: {
+            drawerLockMode: 'locked-closed'
+        }
     }
-})
+)
+
+
+
+
 
 const AppSwitchNavigator = createSwitchNavigator(
     {
@@ -43,12 +58,16 @@ const AppSwitchNavigator = createSwitchNavigator(
         Welcome: { screen: WelcomeScreen },
         Login: { screen: LoginScreen},
         Signup: { screen: SignupScreen},
-        Dashboard: { screen: BottomTabNavigator}
+        // Edit: { screen: DrawerNavigator },
+        Dashboard: { screen: DrawerNavigator},
+        
     },
     {
         initialRouteName: 'AuthLoading'
     }
 )
+
+
 
 
 // const DrawerNavigator = createDrawerNavigator(

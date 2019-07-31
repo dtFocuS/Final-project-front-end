@@ -15,6 +15,10 @@ class OthersActivityDetail extends Component {
         this.props.handleJoin(this.props.activity)
     }
 
+    handleDelete = () => {
+
+    }
+
 
     render() {
         return(
@@ -49,13 +53,26 @@ class OthersActivityDetail extends Component {
                     
 
                 </Card>
-                <Button
-                    // icon={<Icon name='code' color='#ffffff' />}
-                    backgroundColor='#03A9F4'
-                    buttonStyle={styles.button}
-                    titleStyle={{ fontFamily: 'Lobster' }}
-                    onPress={this.handleJoin}
-                    title='rightIn' />
+                {
+                    this.props.joined? 
+                        <Button
+                            ackgroundColor='#03A9F4'
+                            buttonStyle={styles.button}
+                            titleStyle={{ fontFamily: 'Lobster' }}
+                            onPress={this.handleDelete}
+                            title="rightOut"
+                        />
+
+                    :
+                        <Button
+                            // icon={<Icon name='code' color='#ffffff' />}
+                            ackgroundColor='#03A9F4'
+                            buttonStyle={styles.button}
+                            titleStyle={{ fontFamily: 'Lobster' }}
+                            onPress={this.handleJoin}
+                            title='rightIn' />
+                }
+                
             </View>
 
         );
