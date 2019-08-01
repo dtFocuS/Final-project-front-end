@@ -27,7 +27,7 @@ class LoginScreen extends Component {
             Alert.alert('Invalid username or password!')
         } else {
             //this.props.screenProps.handleLogin({username: username, password: password});
-            fetch(NGROK_URL + '/api/v1/login', {
+            fetch(URL + '/api/v1/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

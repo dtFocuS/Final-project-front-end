@@ -11,15 +11,15 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import SmallProfilePic from './SmallProfilePic';
 
 const NGROK_URL = "http://4a31226a.ngrok.io";
+const URL = 'http://localhost:3000';
 
 
 class MyActivityMarker extends Component {
     state = {
-        isClicked: false,
+        // isClicked: false,
         isVisible: false,
-        clickDelete: false,
-        clickEdit: false,
-        myParticipants: []
+        // clickDelete: false,
+        // clickEdit: false,
     }
 
     // handlePress = () => {
@@ -30,20 +30,20 @@ class MyActivityMarker extends Component {
 
     // }
 
-    componentDidMount() {
-        this.loadParticipants();
-    }
+    // componentDidMount() {
+    //     this.loadParticipants();
+    // }
 
-    loadParticipants = () => {
-        fetch(NGROK_URL + '/api/v1/participants/' + this.props.activity.id)
-            .then(resp => resp.json())
-            .then(json => {
-                this.setState({
-                    myParticipants: json
-                })
+    // loadParticipants = () => {
+    //     fetch(URL + '/api/v1/participants/' + this.props.activity.id)
+    //         .then(resp => resp.json())
+    //         .then(json => {
+    //             this.setState({
+    //                 myParticipants: json
+    //             })
 
-            })
-    }
+    //         })
+    // }
 
     handleOverlay = () => {
         this.setState({
@@ -67,6 +67,7 @@ class MyActivityMarker extends Component {
                 <Marker
                     coordinate={this.props.coordinate}
                     pinColor={'#7332a8'}
+            
                 >
                     <Callout onPress={this.handleOverlay}>
                         <View style={{ width: 165 }}>
@@ -89,7 +90,8 @@ class MyActivityMarker extends Component {
                                 <Text style={ { paddingLeft: 10, paddingTop: 10, fontWeight: 'bold'} }>{user.username}</Text>
                             </View>
                            
-                            <SmallProfilePic participants={this.state.myParticipants}/>
+                            {/* <SmallProfilePic participants={this.state.myParticipants}/> */}
+                            <SmallProfilePic participants={this.props.activity.participations} />
 
                             <Text style={{ paddingTop: 15, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.description}</Text>
                             {/* <CalloutSubview onPress={this.handleOverlay}>
@@ -128,7 +130,7 @@ class MyActivityMarker extends Component {
                     isVisible={this.state.isVisible}
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
-                    <ActivityDetail user={user} activity={activity} handleClose={this.handleClose} handleModal={this.props.handleModal}/>
+                    <ActivityDetail user={user} activity={activity} handleClose={this.handleClose} handleModal={this.props.handleModal} deleteActivity={this.props.deleteActivity} handleDeletePrompt={this.props.handleDeletePrompt}/>
                 </Overlay>
                     
               

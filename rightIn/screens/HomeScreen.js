@@ -9,6 +9,7 @@ import MenuDrawer from 'react-native-side-drawer'
 import Drawer from '../components/Drawer';
 import Modal from 'react-native-modal';
 import EditActivity from '../components/EditActivity';
+import DeleteActivity from '../components/DeleteActivity';
 
 
 
@@ -24,7 +25,8 @@ class HomeScreen extends Component {
         // activites:[],
         open: false,
         isVisible: false,
-        activity: null
+        isSecVisible: false
+    
     }
 
     // componentDidMount() {
@@ -57,6 +59,19 @@ class HomeScreen extends Component {
         this.setState({
             activity: activity,
             isVisible: true,
+        })
+    }
+
+    handleDeletePrompt = (activity) => {
+        this.setState({
+            isSecVisible: true,
+            activity: activity
+        })
+    }
+
+    secModalClose = () => {
+        this.setState({
+            isSecVisible: false
         })
     }
 
@@ -97,7 +112,7 @@ class HomeScreen extends Component {
                             <CustomHeader tab={'Home'} onHandleDrawer={this.handleOpen} user={this.props.screenProps.user} />
                         </View>
 
-                        <Map screenProps={this.props.screenProps} handleModal={this.handleModal}/>
+                        <Map screenProps={this.props.screenProps} handleModal={this.handleModal} handleDeletePrompt={this.handleDeletePrompt}/>
 
                     </View>
                 {/* </MenuDrawer> */}
@@ -112,6 +127,18 @@ class HomeScreen extends Component {
                     isVisible={this.state.isVisible}
 
                 ><EditActivity activity={this.state.activity} editActivity={this.props.screenProps.editActivity} modalClose={this.modalClose}/></Modal>
+                <Modal
+
+                    animationIn={'slideInUp'}
+                    animationOut={'slideOutDown'}
+                    animationInTiming={500}
+                    onBackdropPress={() => this.setState({ isSecVisible: false })}
+                    style={styles.modal}
+                    backdropOpacity={0.10}
+                    isVisible={this.state.isSecVisible}
+
+                ><DeleteActivity activity={this.state.activity} deleteActivity={this.props.screenProps.deleteActivity} secModalClose={this.secModalClose} /></Modal>
+
 
                 
 

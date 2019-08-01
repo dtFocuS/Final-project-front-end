@@ -20,7 +20,7 @@ class MyParticipationMarker extends Component {
     }
 
     loadUser = () => {
-        fetch(NGROK_URL + "/api/v1/users/" + this.props.otherUserId)
+        fetch(URL + "/api/v1/users/" + this.props.otherUserId)
         .then(resp => resp.json())
         .then(json => {
             this.setState({
@@ -35,7 +35,7 @@ class MyParticipationMarker extends Component {
     }
     
     loadParticipants = () => {
-        fetch(NGROK_URL + '/api/v1/participants/' + this.props.activity.id)
+        fetch(URL + '/api/v1/participants/' + this.props.activity.id)
         .then(resp => resp.json())
         .then(json => {
             this.setState({

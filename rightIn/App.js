@@ -11,6 +11,7 @@ import { Root, Toast } from "native-base";
 
 import MainNavigator from './navigation/MainNavigator';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { ActivityType } from 'expo-location';
 
 const NGROK_URL = "http://4a31226a.ngrok.io";
 const URL = 'http://localhost:3000';
@@ -32,6 +33,7 @@ class App extends Component {
     myActivities: [],
     newCreated: null,
     notJoinedActivities: null,
+    address: null
     // selectedParticipants: []
   }
 
@@ -69,7 +71,7 @@ class App extends Component {
   }
 
   loadAllParticipations = () => {
-    fetch(NGROK_URL + '/api/v1/participations')
+    fetch(URL + '/api/v1/participations')
     .then(resp => resp.json())
     .then(json => {
       this.setState({
@@ -95,7 +97,7 @@ class App extends Component {
 
   getUser = (token) => {
     //let token = this.getToken()
-    fetch(NGROK_URL + '/api/v1/profile', {
+    fetch(URL + '/api/v1/profile', {
       headers: {
         'Authorization': 'Bearer ' + token
       }
@@ -124,8 +126,16 @@ class App extends Component {
     })
   }
 
+  getAddress = (address) => {
+    let target = address[0].name + ", " + address[0].city + ", " + address[0].region + " " + address[0].postalCode
+    console.log(target)
+    this.setState({
+      address: target
+    })
+  }
+
   loadOtherUsers = () => {
-    fetch(NGROK_URL + '/api/v1/users')
+    fetch(URL + '/api/v1/users')
     .then(resp => resp.json())
     .then(users => {
       const otherUsers = users.filter(user => user.id != this.state.user.id)
@@ -136,7 +146,7 @@ class App extends Component {
   }
 
   loadAllActivities = () => {
-    fetch(NGROK_URL + '/api/v1/activities')
+    fetch(URL + '/api/v1/activities')
     .then(resp => resp.json())
     .then(activities => {
       this.setState({
@@ -151,7 +161,7 @@ class App extends Component {
 
   loadOtherActivities = () => {
     if (this.state.user) {
-      fetch(NGROK_URL + "/api/v1/others_activities/" + this.state.user.id)
+      fetch(URL + "/api/v1/others_activities/" + this.state.user.id)
       .then(resp => resp.json())
       .then(json => {
         this.setState({
@@ -163,8 +173,8 @@ class App extends Component {
   }
 
   loadMyActivities = () => {
-    if (this.state.allActivities) {
-      const myActivities = this.state.allActivities.filter(activity => activity.user_id === this.state.user.id)
+    if (this.state.user) {
+      //const myActivities = this.state.allActivities.filter(activity => activity.user_id === this.state.user.id)
       this.setState({
         myActivities: this.state.user.activities
       })
@@ -187,7 +197,7 @@ class App extends Component {
   }
 
   createParticipation = (activityId) => {
-    fetch(NGROK_URL + '/api/v1/participations', {
+    fetch(URL + '/api/v1/participations', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -202,10 +212,18 @@ class App extends Component {
   }
 
   handleCreate = (newActivity) => {
+    console.log(newActivity)
+    const { activity } = newActivity;
+    // console.log(this.state.myActivities)
+    // this.setState({
+    //   newCreated: newActivity
+    // }, () => {
+    //     this.getToken();
+    // })
+    const temp = this.state.myActivities.slice();
+    temp.push(activity)
     this.setState({
-      newCreated: newActivity
-    }, () => {
-        this.loadMyActivities();
+      myActivities: temp
     })
     
   }
@@ -215,7 +233,7 @@ class App extends Component {
   }
 
   loadJoinedActivity = () => {
-    fetch(NGROK_URL + "/api/v1/my_joined_activities/" + this.state.user.id)
+    fetch(URL + "/api/v1/my_joined_activities/" + this.state.user.id)
     .then(resp => resp.json())
     .then(json => {
       this.setState({
@@ -225,7 +243,7 @@ class App extends Component {
   }
 
   otherNotJoinedActivity = () => {
-    fetch(NGROK_URL + "/api/v1/other_not_joined_activities/" + this.state.user.id)
+    fetch(URL + "/api/v1/other_not_joined_activities/" + this.state.user.id)
     .then(resp => resp.json())
     .then(json => {
       this.setState({
@@ -237,7 +255,7 @@ class App extends Component {
   editActivity = (activity) => {
     const { id, name, description, latitude, longitude } = activity;
     console.log(latitude)
-    fetch(NGROK_URL + "/api/v1/activities/" + id, {
+    fetch(URL + "/api/v1/activities/" + id, {
       method: "PATCH",
       headers: {
         'Accept': 'application/json',
@@ -246,11 +264,45 @@ class App extends Component {
       body: JSON.stringify({ activity: { name: name, description: description, latitude: latitude, longitude: longitude}})
     })
     .then(resp => resp.json())
-    .then(activity => {
-      this.getUser();
+    .then(json => {
+      const { activity } = json
+      console.log(activity)
+      const temp = this.state.myActivities.filter(target => target.id !== activity.id)
+      temp.push(activity)
+      // console.log(temp)
+      this.setState({
+        myActivities: temp
+      })
     })
   
+  }
 
+  deleteActivity = (activity) => {
+    console.log('delete act', activity)
+    // const temp = this.state.myActivities.filter(target => target.id !== activity.id)
+    // this.setState({
+    //   myActivities: temp
+    // })
+   
+    const temp = this.state.myActivities.filter(target => target.id !== activity.id)
+    console.log(temp)
+    this.setState({
+      myActivities: temp
+    })
+    fetch(URL + "/api/v1/activities/" + activity.id, {
+      method: "DELETE",
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      // console.log(this.state.myActivities)
+      // let copy = this.state.myActivities.slice();
+      // const temp = copy.filter(target => target.id !== activity.id)
+      // console.log(temp)
+      // this.setState({
+      //   myActivities: temp
+      // })
+    })
+  
   }
 
   // loadParticipants = (activity_id) => {
@@ -285,7 +337,10 @@ class App extends Component {
       handleGetToken: this.handleGetToken,
       joinedActivities: this.state.joinedActivities,
       notJoinedActivities: this.state.notJoinedActivities,
-      editActivity: this.editActivity
+      editActivity: this.editActivity,
+      getAddress: this.getAddress,
+      address: this.state.address,
+      deleteActivity: this.deleteActivity
       // loadParticipants: this.loadParticipants,
       // selectedParticipants: this.state.selectedParticipants
     }

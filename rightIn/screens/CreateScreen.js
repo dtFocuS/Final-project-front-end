@@ -30,7 +30,7 @@ class CreateScreen extends Component {
             user_id: this.props.screenProps.user.id,
             latitude: this.props.screenProps.userLocation.latitude,
             longitude: this.props.screenProps.userLocation.longitude,
-            
+            address: this.props.screenProps.address
         };
     }
 
@@ -51,16 +51,16 @@ class CreateScreen extends Component {
     createActivity = () => {
         //const user_id = this.props.navigation.dangerouslyGetParent().getParam('user_id');
         console.log(this.props.screenProps.userLocation)
-        const { name, description, user_id, latitude, longitude } = this.state;
+        const { name, description, user_id, latitude, longitude, address } = this.state;
          if (this.state.name === "" || this.state.description === "") {
             Alert.alert('Please fill out all fields.')
          } else {
-             fetch(NGROK_URL + '/api/v1/activities', {
+             fetch(URL + '/api/v1/activities', {
                  method: 'POST',
                  headers: {
                      'Content-Type': 'application/json'
                  },
-                 body: JSON.stringify({ activity: { name, description, user_id, latitude, longitude} })
+                 body: JSON.stringify({ activity: { name, description, user_id, latitude, longitude, address} })
              })
              .then(resp => resp.json())
              .then(json => {
@@ -73,17 +73,7 @@ class CreateScreen extends Component {
         //Alert.alert('Credentials', `${username} + ${password}`);
     }
 
-    editActivity = () => {
-        console.log(this.props.navigation.getParam('name'))
-        console.log(this.props.navigation.getParam('description'))
-        if (this.props.navigation.state.params) {
-            this.setState({
-                name: this.props.navigation.getParam('name'),
-                description: this.props.navigation.getParam('description')
-            })
-        }
-    }
-
+    
     
 
     

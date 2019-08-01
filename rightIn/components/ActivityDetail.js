@@ -22,8 +22,8 @@ class ActivityDetial extends Component {
 
     handleEdit = () => {
         
-       this.props.handleClose(); 
-       this.props.handleModal(this.props.activity);
+        this.props.handleClose(); 
+        this.props.handleModal(this.props.activity);
         // this.setState({
         //     isVisible:true
         // })
@@ -31,6 +31,12 @@ class ActivityDetial extends Component {
         // this.props.navigation.openDrawer(this.props.activity)
         //this.props.navigation.navigate('DrawerOpen');
         
+    }
+
+    handleDelete = () => {
+        this.props.handleClose();
+        // this.props.deleteActivity(this.props.activity);
+        this.props.handleDeletePrompt(this.props.activity);
         
     }
 
@@ -58,7 +64,9 @@ class ActivityDetial extends Component {
                                 // backgroundColor='#03A9F4'
                                 titleStyle={{ color: 'red' }}
                                 type='clear'
+                                onPress={this.handleDelete}
                                 title='Delete Activity' />
+                                
                         </View>
 
 

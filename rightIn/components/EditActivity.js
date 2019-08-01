@@ -11,8 +11,8 @@ import IconBadge from 'react-native-icon-badge';
 class EditActivity extends Component {
 
     state = {
-        name: this.props.activity.name,
-        description: this.props.activity.description
+        // name: this.props.activity.name,
+        // description: this.props.activity.description
     }
 
 
@@ -52,7 +52,7 @@ class EditActivity extends Component {
                             </Item>
                         </Form> */}
                         <TextInput
-                            value={this.state.name}
+                            value={this.props.activity.name}
                             onChangeText={(name) => this.setState({ name })}
                             selectionColor={'tomato'}
                             placeholder={'Name'}
@@ -64,7 +64,7 @@ class EditActivity extends Component {
                         />
                         <TextInput
                             multiline={true}
-                            value={this.state.description}
+                            value={this.props.activity.description}
                             onChangeText={(description) => this.setState({ description })}
                             selectionColor={'tomato'}
                             placeholder={'Description'}
