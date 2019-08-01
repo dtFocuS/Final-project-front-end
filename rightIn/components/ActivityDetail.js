@@ -7,6 +7,8 @@ import EditActivity from './EditActivity';
 import { withNavigation } from 'react-navigation';
 import { DrawerActions } from 'react-navigation';
 
+import Modal from 'react-native-modal';
+
 
 
 
@@ -14,43 +16,89 @@ import { DrawerActions } from 'react-navigation';
 class ActivityDetial extends Component {
 
     
-
-   
+    state = {
+        isVisible: false
+    }
 
     handleEdit = () => {
+        
+        this.props.handleClose(); 
+        this.props.handleModal(this.props.activity);
+        // this.setState({
+        //     isVisible:true
+        // })
+        // this.props.navigation.dispatch(DrawerActions.openDrawer());
+        // this.props.navigation.openDrawer(this.props.activity)
+        //this.props.navigation.navigate('DrawerOpen');
+        
+    }
+
+    handleDelete = () => {
         this.props.handleClose();
-        this.props.navigation.dispatch(DrawerActions.openDrawer());
+        // this.props.deleteActivity(this.props.activity);
+        this.props.handleDeletePrompt(this.props.activity);
         
     }
 
     render() {
         const { user, activity } = this.props;
         return(
-            
-                <View style={styles.contentContainer}>
-                    <Card title={activity.name}>
-                        <Text>
-                            {activity.description}
-                        </Text>
+            <View style={{ flex:1 }}>
+                <View style={styles.container}>
+                    <View style={styles.contentContainer}>
+                        <Card title={activity.name}>
+                            <Text>
+                                {activity.description}
+                            </Text>
 
-                    </Card>
-                    <Button
-                        // icon={<Icon name='code' color='#ffffff' />}
-                        backgroundColor='#03A9F4'
-                        buttonStyle={styles.button}
-                        titleStyle={{ fontFamily: 'Lobster'}}
-                        onPress={this.handleEdit}
-                        title='Edit Activity' />
-                    <View style={styles.delete}>
+                        </Card>
                         <Button
-                            // backgroundColor='#03A9F4'
-                            titleStyle={{ color: 'red'}}
-                            type='clear'
-                            title='Delete Activity' />
+                            // icon={<Icon name='code' color='#ffffff' />}
+                            backgroundColor='#03A9F4'
+                            buttonStyle={styles.button}
+                            titleStyle={{ fontFamily: 'Lobster' }}
+                            onPress={this.handleEdit}
+                            title='Edit Activity' />
+                        <View style={styles.delete}>
+                            <Button
+                                // backgroundColor='#03A9F4'
+                                titleStyle={{ color: 'red' }}
+                                type='clear'
+                                onPress={this.handleDelete}
+                                title='Delete Activity' />
+                                
+                        </View>
+
+
                     </View>
-                    
+                    {/* <Modal
+
+                    animationIn={'slideInUp'}
+                    animationOut={'slideOutDown'}
+                    animationInTiming={500}
+                    onBackdropPress={() => this.setState({ isVisible: false })}
+                    style={styles.modal}
+                    backdropOpacity={0.10}
+                    isVisible={this.state.isVisible}
+
+                ><EditActivity /></Modal> */}
 
                 </View>
+                {/* <Modal
+
+                    animationIn={'slideInUp'}
+                    animationOut={'slideOutDown'}
+                    animationInTiming={500}
+                    onBackdropPress={() => this.setState({ isVisible: false })}
+                    style={styles.modal}
+                    backdropOpacity={0.10}
+                    isVisible={this.state.isVisible}
+
+                ><EditActivity /></Modal> */}
+
+            </View>
+            
+                
                 
                 
        

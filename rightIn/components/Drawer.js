@@ -17,18 +17,9 @@ class Drawer extends Component {
     render() {
 
         return(
-            <MenuDrawer
-                open={this.props.open}
-                drawerContent={this.drawerContent()}
-                drawerPercentage={85}
-                animationTime={250}
-                overlay={true}
-                opacity={0.4}
-            >
-                {/* <TouchableOpacity onPress={this.toggleOpen} style={styles.body}>
-                    <Text>Open</Text>
-                </TouchableOpacity> */}
-            </MenuDrawer>
+            <View style={styles.container}>
+                <Text>Hi</Text>
+            </View>
                 
          
 

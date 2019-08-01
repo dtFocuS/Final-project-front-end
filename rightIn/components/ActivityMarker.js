@@ -10,7 +10,7 @@ import { Toast } from 'native-base';
 //import climb from '../assets/climb';
 import SmallProfilePic from './SmallProfilePic';
 
-const NGROK_URL = "http://04c049da.ngrok.io";
+const NGROK_URL = "http://4a31226a.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class ActivityMarker extends Component {
@@ -37,7 +37,7 @@ class ActivityMarker extends Component {
     }
 
     loadOwner = () => {
-        fetch(NGROK_URL + '/api/v1/users/' + this.props.activity.user_id)
+        fetch(URL + '/api/v1/users/' + this.props.activity.user_id)
         .then(resp => resp.json())
         .then(user => {
             this.setState({
@@ -69,7 +69,7 @@ class ActivityMarker extends Component {
     // }
 
     loadParticipants = () => {
-        fetch(NGROK_URL + '/api/v1/participants/' + this.props.activity.id)
+        fetch(URL + '/api/v1/participants/' + this.props.activity.id)
         .then(resp => resp.json())
         .then(json => {
             this.setState({

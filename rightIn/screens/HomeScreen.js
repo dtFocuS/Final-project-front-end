@@ -7,6 +7,10 @@ import Map from '../components/Map'
 import CustomHeader from '../components/CustomHeader';
 import MenuDrawer from 'react-native-side-drawer'
 import Drawer from '../components/Drawer';
+import Modal from 'react-native-modal';
+import EditActivity from '../components/EditActivity';
+import DeleteActivity from '../components/DeleteActivity';
+
 
 
 class HomeScreen extends Component {
@@ -19,7 +23,10 @@ class HomeScreen extends Component {
 
     state = {
         // activites:[],
-        open: false
+        open: false,
+        isVisible: false,
+        isSecVisible: false
+    
     }
 
     // componentDidMount() {
@@ -48,6 +55,31 @@ class HomeScreen extends Component {
     //     }
     // }
 
+    handleModal = (activity) => {
+        this.setState({
+            activity: activity,
+            isVisible: true,
+        })
+    }
+
+    handleDeletePrompt = (activity) => {
+        this.setState({
+            isSecVisible: true,
+            activity: activity
+        })
+    }
+
+    secModalClose = () => {
+        this.setState({
+            isSecVisible: false
+        })
+    }
+
+    modalClose = () => {
+        this.setState({
+            isVisible: false
+        })
+    }
     
 
     render() {
@@ -61,15 +93,55 @@ class HomeScreen extends Component {
             //     />
 
             // </View>
-            
             <View style={{flex: 1}}>
-                {/* <Drawer open={this.state.open}/> */}
-                <View style={styles.header}>
-                    <CustomHeader tab={'Home'} onHandleDrawer={this.handleOpen} user={this.props.screenProps.user} />
-                </View>
+                {/* <MenuDrawer
+                    open={this.state.open}
+                    drawerContent={<Drawer />}
+                    drawerPercentage={70}
+                    animationTime={250}
+                    overlay={true}
+                    opacity={0.5}
+
+                > */}
+
+
+
+                    <View style={{ flex: 1 }}>
+                        {/* <Drawer open={this.state.open}/> */}
+                        <View style={styles.header}>
+                            <CustomHeader tab={'Home'} onHandleDrawer={this.handleOpen} user={this.props.screenProps.user} />
+                        </View>
+
+                        <Map screenProps={this.props.screenProps} handleModal={this.handleModal} handleDeletePrompt={this.handleDeletePrompt}/>
+
+                    </View>
+                {/* </MenuDrawer> */}
+                <Modal
+
+                    animationIn={'slideInUp'}
+                    animationOut={'slideOutDown'}
+                    animationInTiming={500}
+                    onBackdropPress={() => this.setState({ isVisible: false })}
+                    style={styles.modal}
+                    backdropOpacity={0.10}
+                    isVisible={this.state.isVisible}
+
+                ><EditActivity activity={this.state.activity} editActivity={this.props.screenProps.editActivity} modalClose={this.modalClose}/></Modal>
+                <Modal
+
+                    animationIn={'slideInUp'}
+                    animationOut={'slideOutDown'}
+                    animationInTiming={500}
+                    onBackdropPress={() => this.setState({ isSecVisible: false })}
+                    style={styles.modal}
+                    backdropOpacity={0.10}
+                    isVisible={this.state.isSecVisible}
+
+                ><DeleteActivity activity={this.state.activity} deleteActivity={this.props.screenProps.deleteActivity} secModalClose={this.secModalClose} /></Modal>
+
+
                 
-                <Map screenProps={this.props.screenProps}  />
-                
+
             </View>
             
 
@@ -98,6 +170,15 @@ const styles = StyleSheet.create({
         //position: 'absolute',
         
         // flex: 1
+    },
+    modal: {
+        backgroundColor: 'white',
+        marginLeft: 60,
+        marginRight: 60,
+        marginBottom: 80,
+        marginTop: 80,
+        alignItems: undefined,
+        justifyContent: undefined,
     }  
 })
 

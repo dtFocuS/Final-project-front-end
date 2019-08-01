@@ -55,6 +55,7 @@ class Map extends Component {
         }
 
         let location = await Location.getCurrentPositionAsync({});
+        let geocode = await Location.reverseGeocodeAsync(location.coords);
         //this.setState({location});
         this.setState(prevState => ({ 
             ...prevState,
@@ -69,10 +70,12 @@ class Map extends Component {
                 longitude: location.coords.longitude
             }
         }), () => {
-            this.setState({
-                activities: this.props.screenProps.otherActivities
-            })
+            // this.setState({
+            //     activities: this.props.screenProps.otherActivities
+            // })
+            
             this.props.screenProps.getLocation(this.state.userLocation)
+            this.props.screenProps.getAddress(geocode)
         });
     };
 
@@ -95,9 +98,9 @@ class Map extends Component {
                         }) :null
                     }
                     {
-                        this.props.screenProps.user?
+                        this.props.screenProps.myActivities?
                         this.props.screenProps.myActivities.map(activity => {
-                            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} />
+                            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleModal={this.props.handleModal} editActivity={this.props.editActivity} deleteActivity={this.props.screenProps.deleteActivity} handleDeletePrompt={this.props.handleDeletePrompt}/>
                         }) : null
                     }
                     {
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     },
     map: {
         // ...StyleSheet.absoluteFillObject,
-        // top: 84
+        // top: 84,
         flex: 1,
         
     }

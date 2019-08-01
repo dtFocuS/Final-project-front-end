@@ -30,23 +30,30 @@ const BottomTabNavigator = createBottomTabNavigator({
     Create: { screen: CreateScreen },
     Notification: { screen: NotificationScreen },
     Profile: { screen: ProfileScreen },
-}, {
+    }, {
         
         tabBarOptions: {
             activeTintColor: 'tomato',
             showLabel: false
         }
-    })
+})
 
-const DrawerNavigator = createDrawerNavigator(
-    {
-        Dashboard: { screen: BottomTabNavigator }
-    }, {
-        navigationOptions: {
-            drawerLockMode: 'locked-closed'
-        }
-    }
-)
+// const AppStackNavigator = createStackNavigator({
+//     Dashboard: { screen: BottomTabNavigator}
+// })
+// const DrawerNavigator = createDrawerNavigator(
+//     {
+//         Dashboard: { screen: BottomTabNavigator,
+//         navigationOptions: {
+//             drawerLockMode: 'locked-closed'
+//         }
+//     }
+//     },
+//     {
+//         contentComponent: EditScreen,
+//         drawerPosition: 'right'
+//     }
+// )
 
 
 
@@ -59,7 +66,7 @@ const AppSwitchNavigator = createSwitchNavigator(
         Login: { screen: LoginScreen},
         Signup: { screen: SignupScreen},
         // Edit: { screen: DrawerNavigator },
-        Dashboard: { screen: DrawerNavigator},
+        Dashboard: { screen: BottomTabNavigator},
         
     },
     {
