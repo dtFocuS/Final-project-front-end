@@ -92,6 +92,7 @@ class MyActivityMarker extends Component {
                            
                             {/* <SmallProfilePic participants={this.state.myParticipants}/> */}
                             <SmallProfilePic participants={this.props.activity.participations} />
+                            <Text style={{ paddingTop: 15, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.address}</Text>
 
                             <Text style={{ paddingTop: 15, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.description}</Text>
                             {/* <CalloutSubview onPress={this.handleOverlay}>

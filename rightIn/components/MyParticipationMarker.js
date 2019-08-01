@@ -51,6 +51,12 @@ class MyParticipationMarker extends Component {
         })
     }
 
+    handleClose = () => {
+        this.setState({
+            isVisible: false
+        })
+    }
+
     render() {
         const verified_icon = 'https://www.pinclipart.com/picdir/middle/59-595548_1495368559287-copy-instagram-verified-badge-png-clipart.png';
         //const { otherUsers, activity } = this.props
@@ -100,6 +106,7 @@ class MyParticipationMarker extends Component {
 
                             </View>
                             <SmallProfilePic participants={this.state.selectedParticipants} />
+                            <Text style={{ paddingTop: 10, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.address}</Text>
 
                             <Text style={{ paddingTop: 10, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.description}</Text>
                             <Button
@@ -128,7 +135,7 @@ class MyParticipationMarker extends Component {
                     {
 
                     }
-                    <OthersActivityDetail user={this.state.otherUser} activity={this.props.activity} participants={this.state.selectedParticipants} joined={true} />
+                    <OthersActivityDetail user={this.state.otherUser} activity={this.props.activity} participants={this.state.selectedParticipants} joined={true} handleUnJoin={this.props.handleUnJoin} handleClose={this.handleClose}/>
                 </Overlay>
 
             </View>

@@ -79,6 +79,8 @@ class Map extends Component {
         });
     };
 
+    // pinMarkers
+
     render() {
         
         return (
@@ -106,7 +108,7 @@ class Map extends Component {
                     {
                         this.props.screenProps.joinedActivities?
                         this.props.screenProps.joinedActivities.map(activity => {
-                            return <MyParticipationMarker key={activity.id} otherUserId={activity.user_id} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} />
+                            return <MyParticipationMarker key={activity.id} otherUserId={activity.user_id} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleUnJoin={this.props.screenProps.handleUnJoin} />
                         }) :null
                     }
                     </MapView>

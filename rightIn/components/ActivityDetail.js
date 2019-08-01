@@ -47,9 +47,13 @@ class ActivityDetial extends Component {
                 <View style={styles.container}>
                     <View style={styles.contentContainer}>
                         <Card title={activity.name}>
-                            <Text>
+                            
+                            <Text style={{ paddingTop: 10, marginLeft: 'auto', marginRight: 'auto' }}>{activity.address}</Text>
+                            
+                            <Text style={{ paddingTop: 10, marginLeft: 'auto', marginRight: 'auto', marginTop: 10}}>
                                 {activity.description}
                             </Text>
+                            
 
                         </Card>
                         <Button

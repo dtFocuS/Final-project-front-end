@@ -18,8 +18,8 @@ class ActivityMarker extends Component {
     state = {
         isClicked: false,
         joined: false,
-        user: null,
-        verified: null,
+        //user: null,
+        //verified: null,
         isVisible: false,
         selectedParticipants: []
     }
@@ -121,7 +121,7 @@ class ActivityMarker extends Component {
                                         style={{ width: 20, height: 20, borderRadius: 10, position: 'absolute', bottom: -5, right: -5 }}
                                     />
                                     : null
-                            } */}
+                                    */} 
 
                                 </View>
 
@@ -130,8 +130,9 @@ class ActivityMarker extends Component {
                                         <Text style={{ paddingLeft: 10, paddingTop: 10, fontWeight: 'bold' }}>{this.state.user.user.username}</Text>
                                         : <Text style={{ paddingLeft: 10, paddingTop: 10 }}>Hello</Text>
                                 }
+                        
 
-                            </View>
+                            </View> 
                             {/* <View style={styles.participants}>
                                 <Icon
                                     name='users'
@@ -146,6 +147,7 @@ class ActivityMarker extends Component {
 
                             </View> */}
                             <SmallProfilePic participants={this.state.selectedParticipants} />
+                            <Text style={{ paddingTop: 10, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.address}</Text>
 
                             <Text style={{ paddingTop: 15, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.description}</Text>
                             {

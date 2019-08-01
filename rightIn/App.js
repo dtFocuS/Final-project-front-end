@@ -25,14 +25,14 @@ class App extends Component {
     userLocation: null,
     isReady: false,
     allParticipations: [],
-    myParticipations: null,
-    joinedActivities: null,
+    myParticipations: [],
+    joinedActivities: [],
     notifications: [],
     allActivities: [],
     otherActivities: [],
     myActivities: [],
     newCreated: null,
-    notJoinedActivities: null,
+    notJoinedActivities: [],
     address: null
     // selectedParticipants: []
   }
@@ -76,8 +76,15 @@ class App extends Component {
     .then(json => {
       this.setState({
         allParticipations: json
-      })
+      }, () => this.loadMyParticipations())
     })
+  }
+
+  loadMyParticipations = () => {
+    //const participations = this.state.allParticipations.filter(participation => participation.user_id === this.state.user.id)
+    this.setState(prevState => ({
+      myParticipations: prevState.allParticipations.filter(participation => participation.user_id === this.state.user.id)
+    }))
   }
 
   getToken = async () => {
@@ -197,6 +204,14 @@ class App extends Component {
   }
 
   createParticipation = (activityId) => {
+    // const temp = this.state.notJoinedActivities.filter(target => target.id === activityId.to_i)
+    // const temp2 = this.state.joinedActivities.slice();
+    // temp2.push(temp[0]);
+    // this.setState({
+    //   notJoinedActivities: temp,
+    //   joinedActivities: temp2,
+
+    //})
     fetch(URL + '/api/v1/participations', {
       method: "POST",
       headers: {
@@ -207,8 +222,24 @@ class App extends Component {
     })
     .then(resp => resp.json())
     .then(json => {
-      this.getToken()
+      // this.getToken()
+      const { participation } = json
+      const temp = this.state.notJoinedActivities.filter(target => target.id === parseInt(activityId, 10))
+      const temp2 = this.state.joinedActivities.slice();
+      // console.log('temp2', temp2)
+      //console.log('temp', temp)
+      // temp2.push(temp[0]);
+      this.setState(prevState => ({
+        notJoinedActivities: prevState.notJoinedActivities.filter(target => target.id !== parseInt(activityId, 10)),
+        // joinedActivities: temp2,
+        joinedActivities: [...prevState.joinedActivities, temp[0]],
+        allParticipations: [...prevState.allParticipations, participation],
+        myParticipations: [...prevState.myParticipations, participation]
+        
+      }), () => {console.log(this.state.myParticipations)})
+      
     })
+  
   }
 
   handleCreate = (newActivity) => {
@@ -221,10 +252,10 @@ class App extends Component {
     //     this.getToken();
     // })
     const temp = this.state.myActivities.slice();
-    temp.push(activity)
-    this.setState({
-      myActivities: temp
-    })
+    //temp.push(activity)
+    this.setState(prevState => ({
+      myActivities: [...prevState.myActivities, activity]
+    }))
     
   }
 
@@ -266,13 +297,13 @@ class App extends Component {
     .then(resp => resp.json())
     .then(json => {
       const { activity } = json
-      console.log(activity)
+      // console.log(activity)
       const temp = this.state.myActivities.filter(target => target.id !== activity.id)
       temp.push(activity)
       // console.log(temp)
-      this.setState({
+      this.setState(prevState => ({
         myActivities: temp
-      })
+      }))
     })
   
   }
@@ -286,23 +317,56 @@ class App extends Component {
    
     const temp = this.state.myActivities.filter(target => target.id !== activity.id)
     console.log(temp)
-    this.setState({
-      myActivities: temp
-    })
+    // this.setState(prevState => {
+    //   myActivities: prevState.myActivities.filter(target => target.id !== activity.id)
+    // })
     fetch(URL + "/api/v1/activities/" + activity.id, {
       method: "DELETE",
     })
     .then(resp => resp.json())
     .then(json => {
-      // console.log(this.state.myActivities)
-      // let copy = this.state.myActivities.slice();
-      // const temp = copy.filter(target => target.id !== activity.id)
-      // console.log(temp)
-      // this.setState({
-      //   myActivities: temp
-      // })
+      
+      this.setState(prevState => ({
+        myActivities: prevState.myActivities.filter(target => target.id !== activity.id)
+      }))
     })
   
+  }
+
+  handleUnJoin = (activity) => {
+    // this.loadAllParticipations();
+    //const participation = activity.participations.filter(participation => participation.user_id === this.state.user.id)
+    // console.log(participation[0].id)
+    // this.setState(prevState => ({
+    //   joinedActivities: prevState.joinedActivities.filter(target => target.id !== activity.id),
+    //   // joinedActivities: temp2,
+    //   notJoinedActivities: [...prevState.notJoinedActivities, activity]
+
+    // }), () => console.log(this.state.joinedActivities))
+    const temp = this.state.myParticipations.slice();
+    console.log('before',this.state.notJoinedActivities)
+    const participation = this.state.myParticipations.filter(participation => participation.activity_id === parseInt(activity.id))
+    //const participation = participations.filter(target => target.activity_id === parseInt(activity.id, 10))
+    fetch(URL + "/api/v1/participations/" + participation[0].id, {
+      method: "DELETE",
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      // const temp = this.state.joinedActivities.filter(target => target.id !== activity.id)
+      // const temp2 = this.state.notJoinedActivities.slice();
+      // temp2.push(activity)
+      this.setState(prevState => ({
+        notJoinedActivities: [...prevState.notJoinedActivities, activity],
+        joinedActivities: prevState.joinedActivities.filter(target => target.id !== parseInt(activity.id)),
+        // joinedActivities: temp2,
+        
+        myParticipations: prevState.myParticipations.filter(participation => participation.activity_id !== activity.id)
+        //allParticipations: prevState.allParticipations.filter(target => target.id !== parseInt(participation[0].id))
+
+      }), () => console.log('after',this.state.notJoinedActivities))
+
+    })
+
   }
 
   // loadParticipants = (activity_id) => {
@@ -323,6 +387,7 @@ class App extends Component {
   
 
   render() {
+    // console.log('render fires')
     const screenProps = {
       user: this.state.user,
       getLocation: this.getLocation,
@@ -340,7 +405,8 @@ class App extends Component {
       editActivity: this.editActivity,
       getAddress: this.getAddress,
       address: this.state.address,
-      deleteActivity: this.deleteActivity
+      deleteActivity: this.deleteActivity,
+      handleUnJoin: this.handleUnJoin
       // loadParticipants: this.loadParticipants,
       // selectedParticipants: this.state.selectedParticipants
     }
