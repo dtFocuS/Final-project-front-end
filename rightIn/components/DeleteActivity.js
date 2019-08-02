@@ -27,7 +27,11 @@ class DeleteActivity extends Component {
                         </Title>
 
                     </Header>
-                    <Content>
+                    <Content >
+                        <View style={{flex: 1}}>
+                            <Text style={styles.message} >Do you want to delete {this.props.activity.name} ?</Text>
+                        </View>
+                        
                         {/* <Form>
                             <Item stackedLabel>
                                 <Label>Name</Label>
@@ -46,7 +50,7 @@ class DeleteActivity extends Component {
                                 />
                             </Item>
                         </Form> */}
-                        <TextInput
+                        {/* <TextInput
                             value={this.props.activity.name}
                             onChangeText={(name) => this.setState({ name })}
                             selectionColor={'tomato'}
@@ -68,7 +72,7 @@ class DeleteActivity extends Component {
                             // onBlur={this.handleBlur}
                             borderBottomColor={'grey'}
 
-                        />
+                        /> */}
                         <Button
                             fontFamily='Lobster'
                             onPress={this.handleDelete}
@@ -124,6 +128,12 @@ const styles = StyleSheet.create({
         elevation: 1,
         width: 180,
         alignSelf: 'center',
+        marginTop: 50
+    },
+    message:{
+        width:240,
+        marginLeft: 'auto',
+        marginRight: 'auto',
         marginTop: 20
     }
 });

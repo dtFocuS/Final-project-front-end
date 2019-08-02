@@ -16,6 +16,8 @@ class OthersActivityDetail extends Component {
     }
 
     handleDelete = () => {
+        this.props.handleClose();
+        this.props.handleUnJoin(this.props.activity)
 
     }
 
@@ -47,6 +49,7 @@ class OthersActivityDetail extends Component {
                     <Text style={styles.title}>
                         {this.props.activity.name}
                     </Text>
+                    <Text style={{ paddingTop: 10, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.address}</Text>
                     <Text style={styles.description}>
                         {this.props.activity.description}
                     </Text>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, AsyncStorage } from 'react-native';
 
-const NGROK_URL = "http://4a31226a.ngrok.io";
+const NGROK_URL = "http://bb19ca29.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class SignupScreen extends Component {
@@ -35,7 +35,7 @@ class SignupScreen extends Component {
 
     createUser = () => {
         const { firstname, lastname, username, password, email, image } = this.state;
-        fetch(NGROK_URL +"/api/v1/users", {
+        fetch(URL +"/api/v1/users", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ class SignupScreen extends Component {
     loginNewUser = () => {
         const { username, password } = this.state;
         //this.props.navigation.navigate('Dashboard');
-        fetch('http://localhost:3000/api/v1/login', {
+        fetch(NGROK_URL + '/api/v1/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

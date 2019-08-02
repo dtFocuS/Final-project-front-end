@@ -8,7 +8,7 @@ import IconBadge from 'react-native-icon-badge';
 import SmallProfilePic from './SmallProfilePic';
 import OthersActivityDetail from './OthersActivityDetail';
 
-const NGROK_URL = "http://4a31226a.ngrok.io";
+const NGROK_URL = "http://bb19ca29.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class MyParticipationMarker extends Component {
@@ -48,6 +48,12 @@ class MyParticipationMarker extends Component {
     handlePress = () => {
         this.setState({
             isVisible: true
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            isVisible: false
         })
     }
 
@@ -100,6 +106,7 @@ class MyParticipationMarker extends Component {
 
                             </View>
                             <SmallProfilePic participants={this.state.selectedParticipants} />
+                            <Text style={{ paddingTop: 10, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.address}</Text>
 
                             <Text style={{ paddingTop: 10, marginLeft: 'auto', marginRight: 'auto' }}>{this.props.activity.description}</Text>
                             <Button
@@ -128,7 +135,7 @@ class MyParticipationMarker extends Component {
                     {
 
                     }
-                    <OthersActivityDetail user={this.state.otherUser} activity={this.props.activity} participants={this.state.selectedParticipants} joined={true} />
+                    <OthersActivityDetail user={this.state.otherUser} activity={this.props.activity} participants={this.state.selectedParticipants} joined={true} handleUnJoin={this.props.handleUnJoin} handleClose={this.handleClose}/>
                 </Overlay>
 
             </View>

@@ -67,13 +67,14 @@ class CustomHeader extends Component {
                     containerStyle={styles.container}
                     leftComponent={{}}
                     centerComponent={{ text: this.props.tab, style: { fontFamily: 'Lobster', color: 'tomato', fontSize: 20 } }}
-                    rightComponent={<ProfilePic user={this.props.user} handleOverlay={this.handleOverlay} />}
+                    rightComponent={<ProfilePic user={this.props.user} handleOverlay={this.handleOverlay} navigation={this.props.navigation}/>}
                 />
                 <Overlay
                     isVisible={this.state.isVisible}
                     //onBlur={() => {this.setState({isVisible: false})}}
                 >
-                    <Button title={'Close'} onPress={this.handleOverlay}></Button>
+                    {/* <Button title={'Close'} onPress={() => {this.setState({isVisible: false})></Button> */}
+                    <Text>Hi</Text>
                 </Overlay>
 
             </View>
@@ -89,7 +90,7 @@ class CustomHeader extends Component {
 const ProfilePic = (props) => {
     return(
         <View style={{ alignSelf: 'flex-end', paddingRight: 20 }}>
-            <TouchableOpacity onPress={props.handleOverlay}>
+            <TouchableOpacity onPress={() => {props.navigation.navigate('profile')}}>
                 {
                     props.user?
                         <Image
