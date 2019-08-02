@@ -8,7 +8,7 @@ import IconBadge from 'react-native-icon-badge';
 import SmallProfilePic from './SmallProfilePic';
 import OthersActivityDetail from './OthersActivityDetail';
 
-const NGROK_URL = "http://4a31226a.ngrok.io";
+const NGROK_URL = "http://bb19ca29.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class MyParticipationMarker extends Component {

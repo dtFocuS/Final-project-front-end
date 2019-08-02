@@ -12,7 +12,7 @@ class WelcomeScreen extends Component {
         const { navigate } = this.props.navigation;
         return(
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Welcome to rightIn!!</Text>
+                <Text style={styles.title}>rightIn</Text>
                 <Button
                     title="Login"
                     onPress={() => navigate('Login')}
@@ -31,5 +31,13 @@ class WelcomeScreen extends Component {
 
 
 }
+
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 120,
+        fontFamily: 'Lobster',
+        color: 'tomato'
+    },
+})
 
 export default WelcomeScreen;

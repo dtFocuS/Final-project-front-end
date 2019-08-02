@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     map: {
-        // ...StyleSheet.absoluteFillObject,
+        ...StyleSheet.absoluteFillObject,
         // top: 84,
         flex: 1,
         

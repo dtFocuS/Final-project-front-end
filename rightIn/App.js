@@ -13,7 +13,7 @@ import MainNavigator from './navigation/MainNavigator';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { ActivityType } from 'expo-location';
 
-const NGROK_URL = "http://4a31226a.ngrok.io";
+const NGROK_URL = "http://bb19ca29.ngrok.io";
 const URL = 'http://localhost:3000';
 
 class App extends Component {

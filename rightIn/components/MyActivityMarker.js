@@ -10,7 +10,7 @@ import ActivityDetail from './ActivityDetail';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import SmallProfilePic from './SmallProfilePic';
 
-const NGROK_URL = "http://4a31226a.ngrok.io";
+const NGROK_URL = "http://bb19ca29.ngrok.io";
 const URL = 'http://localhost:3000';
 
 

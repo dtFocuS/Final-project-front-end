@@ -78,6 +78,7 @@ class ProfileScreen extends Component {
                         </Card>
                         <Card
                             title="Joined Activities"
+                            // titleStyle={{fontFamily: 'Lobser'}}
                         >
                             {
                                 this.props.screenProps.joinedActivities.map(activity => {
@@ -87,7 +88,7 @@ class ProfileScreen extends Component {
                                         //     title={activity.name}
 
                                         // />
-                                        <View key={activity.id}>
+                                        <View style={{marginBottom: 5}}key={activity.id}>
                                             <Text>
                                                 {activity.name}
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Alert, Button, TextInput, View, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { Alert, TextInput, View, StyleSheet, Text, AsyncStorage } from 'react-native';
 //import { withNavigation } from 'react-navigation';
-const NGROK_URL = "http://4a31226a.ngrok.io";
+import { Button } from 'react-native-elements';
+const NGROK_URL = "http://bb19ca29.ngrok.io";
 const URL = 'http://localhost:3000';
 
 
@@ -80,7 +81,7 @@ class LoginScreen extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text>Login</Text>
+                <Text style={{fontFamily: 'Lobster', fontSize:50, marginBottom: 20, color: 'tomato'}}>Login</Text>
                 <TextInput
                     value={this.state.username}
                     onChangeText={(username) => this.setState({ username })}
@@ -97,14 +98,16 @@ class LoginScreen extends Component {
 
                 <Button
                     title={'Login'}
-                    style={styles.input}
+                    //buttonStyle={}
+                    type='clear'
                     onPress={this.onLogin}
                 />
                 <View style={{flexDirection: 'row'}}>
                     <Text>Don't have an account?</Text>
                     <Button 
                         title={'Sign up!'} 
-                        style={{fontSize: 5}}
+                        type="clear"
+                        titleStyle={{fontSize: 20}}
                         onPress={() => navigate('Signup')}
                     />
                 </View>
