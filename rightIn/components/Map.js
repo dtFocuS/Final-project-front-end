@@ -9,6 +9,7 @@ import CustomHeader from './CustomHeader';
 import ActivityMarker from './ActivityMarker';
 import MyActivityMarker from './MyActivityMarker';
 import MyParticipationMarker from './MyParticipationMarker';
+import NotJoinedActivities from './NotJoinedActivities';
 
 class Map extends Component {
     // constructor() {
@@ -82,7 +83,20 @@ class Map extends Component {
     // pinMarkers
 
     render() {
-        
+        //const something = something.map (thing=>thing,name)
+        const notJoinedActivities = this.props.screenProps.notJoinedActivities.map(activity => {
+            return <ActivityMarker key={activity.id} otherUsers={this.props.screenProps.otherUsers} handleJoin={this.props.screenProps.handleJoin} activity={activity}
+                coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} />
+        })
+
+        const joinedActivities = this.props.screenProps.joinedActivities.map(activity => {
+            return <MyParticipationMarker key={activity.id} otherUserId={activity.user_id} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleUnJoin={this.props.screenProps.handleUnJoin} />
+        })
+
+        const myActivities = this.props.screenProps.myActivities.map(activity => {
+            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleModal={this.props.handleModal} editActivity={this.props.editActivity} deleteActivity={this.props.screenProps.deleteActivity} handleDeletePrompt={this.props.handleDeletePrompt} />
+        }) 
+
         return (
             // <View style={{flex: 1}}>
                 <React.Fragment>
@@ -91,32 +105,45 @@ class Map extends Component {
                         provider={'google'}
                         region={this.state.location}
                     >
-                    {
+                    
+                    {/* {
                         this.props.screenProps.notJoinedActivities?
                         this.props.screenProps.notJoinedActivities.map(activity => {
                             return <ActivityMarker key={activity.id} otherUsers={this.props.screenProps.otherUsers} handleJoin={this.props.screenProps.handleJoin} activity={activity} 
                             coordinate={{ latitude: activity.latitude, longitude: activity.longitude }}/>
                             
                         }) :null
-                    }
+                    } */}
                     {
-                        this.props.screenProps.myActivities?
-                        this.props.screenProps.myActivities.map(activity => {
-                            return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleModal={this.props.handleModal} editActivity={this.props.editActivity} deleteActivity={this.props.screenProps.deleteActivity} handleDeletePrompt={this.props.handleDeletePrompt}/>
-                        }) : null
+                        this.props.screenProps.notJoinedActivities ?
+                            notJoinedActivities : null
                     }
-                    {
+                    {/* {
                         this.props.screenProps.joinedActivities?
                         this.props.screenProps.joinedActivities.map(activity => {
                             return <MyParticipationMarker key={activity.id} otherUserId={activity.user_id} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleUnJoin={this.props.screenProps.handleUnJoin} />
                         }) :null
+                    } */}
+                    {
+                        this.props.screenProps.joinedActivities ?
+                            joinedActivities : null
+                    }
+                    {/* {
+                        this.props.screenProps.myActivities ?
+                            this.props.screenProps.myActivities.map(activity => {
+                                return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleModal={this.props.handleModal} editActivity={this.props.editActivity} deleteActivity={this.props.screenProps.deleteActivity} handleDeletePrompt={this.props.handleDeletePrompt} />
+                            }) : null
+                    } */}
+                    {
+                        this.props.screenProps.myActivities ?
+                            myActivities : null
                     }
                     </MapView>
                 
                 <Text></Text>
             </React.Fragment>
             // </View>
-            
+            //{something}
           
         );
     }

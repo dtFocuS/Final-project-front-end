@@ -33,7 +33,8 @@ class App extends Component {
     myActivities: [],
     newCreated: null,
     notJoinedActivities: [],
-    address: null
+    address: null,
+    myCurrentActivity: null,
     // selectedParticipants: []
   }
 
@@ -69,6 +70,8 @@ class App extends Component {
       })
     }
   }
+
+
 
   loadAllParticipations = () => {
     fetch(URL + '/api/v1/participations')
@@ -225,10 +228,7 @@ class App extends Component {
       // this.getToken()
       const { participation } = json
       const temp = this.state.notJoinedActivities.filter(target => target.id === parseInt(activityId, 10))
-      const temp2 = this.state.joinedActivities.slice();
-      // console.log('temp2', temp2)
-      //console.log('temp', temp)
-      // temp2.push(temp[0]);
+      //const temp2 = this.state.joinedActivities.slice();
       this.setState(prevState => ({
         notJoinedActivities: prevState.notJoinedActivities.filter(target => target.id !== parseInt(activityId, 10)),
         // joinedActivities: temp2,
@@ -254,7 +254,8 @@ class App extends Component {
     const temp = this.state.myActivities.slice();
     //temp.push(activity)
     this.setState(prevState => ({
-      myActivities: [...prevState.myActivities, activity]
+      myActivities: [...prevState.myActivities, activity],
+      myCurrentActivity: newActivity
     }))
     
   }
@@ -334,54 +335,47 @@ class App extends Component {
   }
 
   handleUnJoin = (activity) => {
-    // this.loadAllParticipations();
-    //const participation = activity.participations.filter(participation => participation.user_id === this.state.user.id)
-    // console.log(participation[0].id)
-    // this.setState(prevState => ({
-    //   joinedActivities: prevState.joinedActivities.filter(target => target.id !== activity.id),
-    //   // joinedActivities: temp2,
-    //   notJoinedActivities: [...prevState.notJoinedActivities, activity]
+    Toast.show({
+      text: "You rightOut " + activity.name + "!",
+      buttonText: "Okay",
+      position: 'top',
+      duration: 3000,
+      textStyle: { color: 'tomato' }
+    })
+    //console.log(activity)
+    const temp = this.state.user.activities.filter(target => target.id === activity.id)
+    if (temp.length === 0) {
+      const participation = this.state.myParticipations.filter(participation => participation.activity_id === parseInt(activity.id, 10))
+      this.deleteParticipation(activity, participation[0])
+    }
 
-    // }), () => console.log(this.state.joinedActivities))
-    const temp = this.state.myParticipations.slice();
-    console.log('before',this.state.notJoinedActivities)
-    const participation = this.state.myParticipations.filter(participation => participation.activity_id === parseInt(activity.id))
+  }
+
+  deleteParticipation = (activity, participation) => {
+    //const temp = this.state.myParticipations.slice();
+    //console.log('activity:', activity)
+    //console.log('before',this.state.notJoinedActivities)
+    // const participation = this.state.myParticipations.filter(participation => participation.activity_id === parseInt(activity.id, 10))
     //const participation = participations.filter(target => target.activity_id === parseInt(activity.id, 10))
-    fetch(URL + "/api/v1/participations/" + participation[0].id, {
+    fetch(URL + "/api/v1/participations/" + participation.id, {
       method: "DELETE",
     })
     .then(resp => resp.json())
     .then(json => {
-      // const temp = this.state.joinedActivities.filter(target => target.id !== activity.id)
-      // const temp2 = this.state.notJoinedActivities.slice();
-      // temp2.push(activity)
+      //console.log("this activity:", json)
       this.setState(prevState => ({
+        joinedActivities: prevState.joinedActivities.filter(target => target.id !== parseInt(json.participation.activity_id, 10)),
         notJoinedActivities: [...prevState.notJoinedActivities, activity],
-        joinedActivities: prevState.joinedActivities.filter(target => target.id !== parseInt(activity.id)),
-        // joinedActivities: temp2,
         
-        myParticipations: prevState.myParticipations.filter(participation => participation.activity_id !== activity.id)
+        myParticipations: prevState.myParticipations.filter(participation => participation.activity_id !== parseInt(activity.id, 10))
         //allParticipations: prevState.allParticipations.filter(target => target.id !== parseInt(participation[0].id))
 
-      }), () => console.log('after',this.state.notJoinedActivities))
+      }), () => console.log('after',this.state.joinedActivities))
 
     })
 
   }
 
-  // loadParticipants = (activity_id) => {
-  //   fetch(NGROK_URL + '/api/v1/participants/' + activity_id)
-  //   .then(resp => resp.json())
-  //   .then(json => {
-  //     this.setState({
-  //       selectedParticipants: json
-  //     }, () => {console.log(this.state.selectedParticipants.length)})
-  //   })
-  // }
-
-
-
-  
  
 
   
