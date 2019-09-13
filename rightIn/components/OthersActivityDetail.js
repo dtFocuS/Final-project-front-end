@@ -107,7 +107,9 @@ const styles = StyleSheet.create({
         top: 5
     },
     description: {
-        top: 10
+        top: 10,
+        marginLeft: 'auto', 
+        marginRight: 'auto'
     }
 })
 

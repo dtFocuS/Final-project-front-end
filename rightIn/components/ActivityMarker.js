@@ -96,7 +96,7 @@ class ActivityMarker extends Component {
             <View>
                 <Marker
                     coordinate={this.props.coordinate}
-                    pinColor={this.state.joined ? 'blue' : "red"}
+                    pinColor={"red"}
                 >
                     <Callout onPress={this.handleOverlay}>
                         <View style={ {width: 165} }>
@@ -177,7 +177,7 @@ class ActivityMarker extends Component {
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
                     <OthersActivityDetail user={this.state.user} activity={this.props.activity} participants={this.state.selectedParticipants} handleJoin={this.props.handleJoin} handleClose={this.handleClose} joined={false}/>
-                    
+                    {/* <OthersActivityDetail  activity={this.props.activity} participants={this.state.selectedParticipants} handleJoin={this.props.handleJoin} handleClose={this.handleClose} joined={false} /> */}
                 </Overlay>
 
             </View>
