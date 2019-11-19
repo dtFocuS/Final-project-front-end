@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, AsyncStorage } from 'react-native';
 
 const NGROK_URL = "http://bb19ca29.ngrok.io";
-const URL = 'http://localhost:3000';
+const URL = 'https://rightin-backend.herokuapp.com';
 
 class SignupScreen extends Component {
     static navigationOptions = {

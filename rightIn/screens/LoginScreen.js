@@ -3,7 +3,7 @@ import { Alert, TextInput, View, StyleSheet, Text, AsyncStorage } from 'react-na
 //import { withNavigation } from 'react-navigation';
 import { Button } from 'react-native-elements';
 const NGROK_URL = "http://bb19ca29.ngrok.io";
-const URL = 'http://localhost:3000';
+const URL = 'https://rightin-backend.herokuapp.com';
 
 
 class LoginScreen extends Component {

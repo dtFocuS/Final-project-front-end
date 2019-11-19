@@ -11,7 +11,7 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import SmallProfilePic from './SmallProfilePic';
 
 const NGROK_URL = "http://bb19ca29.ngrok.io";
-const URL = 'http://localhost:3000';
+const URL = 'https://rightin-backend.herokuapp.com';
 
 
 class MyActivityMarker extends Component {

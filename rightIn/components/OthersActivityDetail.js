@@ -10,19 +10,30 @@ class OthersActivityDetail extends Component {
 
     
 
-    handleJoin = () => {
-        this.props.handleClose();
-        this.props.handleJoin(this.props.activity)
-    }
+    // handleJoin = () => {
+    //     this.props.handleClose();
+    //     this.props.handleJoin(this.props.activity)
+    // }
 
-    handleDelete = () => {
-        this.props.handleClose();
-        this.props.handleUnJoin(this.props.activity)
+    // handleDelete = () => {
+    //     this.props.handleClose();
+    //     this.props.handleUnJoin(this.props.activity)
 
-    }
+    // }
 
 
     render() {
+        // const { handleClose, handleJoin } = this.props;
+        const handleJoin = () => {
+            this.props.handleClose();
+            this.props.handleJoin(this.props.activity)
+        }
+
+        const handleDelete = () => {
+            this.props.handleClose();
+            this.props.handleUnJoin(this.props.activity)
+
+        }
         return(
 
             <View>
@@ -62,7 +73,7 @@ class OthersActivityDetail extends Component {
                             ackgroundColor='#03A9F4'
                             buttonStyle={styles.button}
                             titleStyle={{ fontFamily: 'Lobster' }}
-                            onPress={this.handleDelete}
+                            onPress={handleDelete}
                             title="rightOut"
                         />
 
@@ -72,7 +83,7 @@ class OthersActivityDetail extends Component {
                             ackgroundColor='#03A9F4'
                             buttonStyle={styles.button}
                             titleStyle={{ fontFamily: 'Lobster' }}
-                            onPress={this.handleJoin}
+                            onPress={handleJoin}
                             title='rightIn' />
                 }
                 

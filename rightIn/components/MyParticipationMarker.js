@@ -9,7 +9,7 @@ import SmallProfilePic from './SmallProfilePic';
 import OthersActivityDetail from './OthersActivityDetail';
 
 const NGROK_URL = "http://bb19ca29.ngrok.io";
-const URL = 'http://localhost:3000';
+const URL = 'https://rightin-backend.herokuapp.com';
 
 class MyParticipationMarker extends Component {
 
@@ -45,17 +45,17 @@ class MyParticipationMarker extends Component {
         })
     }
 
-    handlePress = () => {
-        this.setState({
-            isVisible: true
-        })
-    }
+    // handlePress = () => {
+    //     this.setState({
+    //         isVisible: true
+    //     })
+    // }
 
-    handleClose = () => {
-        this.setState({
-            isVisible: false
-        })
-    }
+    // handleClose = () => {
+    //     this.setState({
+    //         isVisible: false
+    //     })
+    // }
 
     render() {
         const verified_icon = 'https://www.pinclipart.com/picdir/middle/59-595548_1495368559287-copy-instagram-verified-badge-png-clipart.png';
@@ -64,6 +64,17 @@ class MyParticipationMarker extends Component {
         // if (this.props.otherUsers) {
         //     otherUser = this.props.otherUsers.filter(user => user.id === this.props.activity.user_id)
         // }
+        const handlePress = () => {
+            this.setState({
+                isVisible: true
+            })
+        }
+
+        const handleClose = () => {
+            this.setState({
+                isVisible: false
+            })
+        }
 
 
         return (
@@ -72,7 +83,7 @@ class MyParticipationMarker extends Component {
                     coordinate={this.props.coordinate}
                     pinColor={'blue'}
                 >
-                    <Callout onPress={this.handlePress}>
+                    <Callout onPress={handlePress}>
                         <View style={{ width: 165 }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
@@ -135,7 +146,7 @@ class MyParticipationMarker extends Component {
                     {
 
                     }
-                    <OthersActivityDetail user={this.state.otherUser} activity={this.props.activity} participants={this.state.selectedParticipants} joined={true} handleUnJoin={this.props.handleUnJoin} handleClose={this.handleClose}/>
+                    <OthersActivityDetail user={this.state.otherUser} activity={this.props.activity} participants={this.state.selectedParticipants} joined={true} handleUnJoin={this.props.handleUnJoin} handleClose={handleClose}/>
                 </Overlay>
 
             </View>

@@ -9,7 +9,7 @@ import { DatePicker } from 'native-base';
 
 
 const NGROK_URL = "http://bb19ca29.ngrok.io";
-const URL = 'http://localhost:3000';
+const URL = 'https://rightin-backend.herokuapp.com';
 
 class CreateScreen extends Component {
 
