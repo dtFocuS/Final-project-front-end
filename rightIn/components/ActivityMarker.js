@@ -11,7 +11,7 @@ import { Toast } from 'native-base';
 import SmallProfilePic from './SmallProfilePic';
 
 const NGROK_URL = "http://bb19ca29.ngrok.io";
-const URL = 'http://localhost:3000';
+const URL = 'https://rightin-backend.herokuapp.com';
 
 class ActivityMarker extends Component {
 
@@ -24,12 +24,12 @@ class ActivityMarker extends Component {
         selectedParticipants: []
     }
 
-    handlePress = () => {
-        this.setState({
-            joined: true
-        })
-        this.props.handleJoin(this.props.activity);
-    }
+    // handlePress = () => {
+    //     this.setState({
+    //         joined: true
+    //     })
+    //     this.props.handleJoin(this.props.activity);
+    // }
 
     componentDidMount() {
         this.loadOwner();
@@ -46,17 +46,17 @@ class ActivityMarker extends Component {
         })
     }
 
-    handleOverlay = () => {
-        this.setState({
-            isVisible: true
-        })
-    }
+    // handleOverlay = () => {
+    //     this.setState({
+    //         isVisible: true
+    //     })
+    // }
 
-    handleClose = () => {
-        this.setState({
-            isVisible: false
-        })
-    }
+    // handleClose = () => {
+    //     this.setState({
+    //         isVisible: false
+    //     })
+    // }
 
     // checkVerified = () => {
     //     this.setState({
@@ -74,7 +74,7 @@ class ActivityMarker extends Component {
         .then(json => {
             this.setState({
                 selectedParticipants: json
-            })
+            }, console.log(this.state.selectedParticipants))
             
         })
     }
@@ -90,6 +90,24 @@ class ActivityMarker extends Component {
         // if (this.props.otherUsers) {
         //     otherUser = this.props.otherUsers.filter(user => user.id === this.props.activity.user_id)
         // }
+        const handleOverlay = () => {
+            this.setState({
+                isVisible: true
+            })
+        }
+
+        const handleClose = () => {
+            this.setState({
+                isVisible: false
+            })
+        }
+
+        const handlePress = () => {
+            this.setState({
+                joined: true
+            })
+            this.props.handleJoin(this.props.activity);
+        }
         
 
         return(
@@ -98,7 +116,7 @@ class ActivityMarker extends Component {
                     coordinate={this.props.coordinate}
                     pinColor={"red"}
                 >
-                    <Callout onPress={this.handleOverlay}>
+                    <Callout onPress={handleOverlay}>
                         <View style={ {width: 165} }>
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
@@ -156,7 +174,7 @@ class ActivityMarker extends Component {
                                         <Button
                                             type='clear'
                                             title={'rightIn'}
-                                            onPress={this.handlePress}
+                                            onPress={handlePress}
                                             titleStyle={{ fontFamily: 'Lobster', fontWeight: 'bold' }}
                                             buttonStyle={{ width: 66, marginLeft: 'auto', marginRight: 'auto', height: 40 }}
                                         ></Button>
@@ -176,7 +194,7 @@ class ActivityMarker extends Component {
                     isVisible={this.state.isVisible}
                     onBackdropPress={() => this.setState({ isVisible: false })}
                 >
-                    <OthersActivityDetail user={this.state.user} activity={this.props.activity} participants={this.state.selectedParticipants} handleJoin={this.props.handleJoin} handleClose={this.handleClose} joined={false}/>
+                    <OthersActivityDetail user={this.state.user} activity={this.props.activity} participants={this.state.selectedParticipants} handleJoin={this.props.handleJoin} handleClose={handleClose} joined={false}/>
                     {/* <OthersActivityDetail  activity={this.props.activity} participants={this.state.selectedParticipants} handleJoin={this.props.handleJoin} handleClose={this.handleClose} joined={false} /> */}
                 </Overlay>
 
