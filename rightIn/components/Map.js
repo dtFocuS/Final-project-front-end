@@ -10,6 +10,7 @@ import ActivityMarker from './ActivityMarker';
 import MyActivityMarker from './MyActivityMarker';
 import MyParticipationMarker from './MyParticipationMarker';
 import NotJoinedActivities from './NotJoinedActivities';
+import TestMarker from './TestMarker';
 
 class Map extends Component {
     // constructor() {
@@ -97,6 +98,11 @@ class Map extends Component {
             return <MyActivityMarker key={activity.id} user={this.props.screenProps.user} activity={activity} coordinate={{ latitude: activity.latitude, longitude: activity.longitude }} handleModal={this.props.handleModal} editActivity={this.props.editActivity} deleteActivity={this.props.screenProps.deleteActivity} handleDeletePrompt={this.props.handleDeletePrompt} />
         }) 
 
+        //for testing if there is any error with the activity marker
+        const testMark = this.props.screenProps.notJoinedActivities.map(activity => {
+            return <TestMarker key={activity.id} coordinate={{ latitude: activity.latitude, longitude: activity.longitude}} />
+        })
+
         return (
             // <View style={{flex: 1}}>
                 <React.Fragment>
@@ -114,6 +120,7 @@ class Map extends Component {
                             
                         }) :null
                     } */}
+                    
                     {
                         this.props.screenProps.notJoinedActivities ?
                             notJoinedActivities : null
